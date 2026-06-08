@@ -8,49 +8,62 @@ import { CardPremium } from "./card-premium";
 import { Container } from "./container";
 
 export function Hero() {
+  const [shouldAnimate, setShouldAnimate] = React.useState(false);
+  
+  React.useEffect(() => {
+    // Enable complex rendering animations only on desktop devices
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setShouldAnimate(mediaQuery.matches);
+    
+    const handler = (e: MediaQueryListEvent) => setShouldAnimate(e.matches);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
   return (
     <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-background pt-24 pb-16 md:pt-32 md:pb-24">
       {/* 1. Animated background gradient blobs */}
       <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
         {/* Blue Sphere */}
         <motion.div
-          animate={{
+          animate={shouldAnimate ? {
             x: [0, 50, -30, 0],
             y: [0, -40, 60, 0],
             scale: [1, 1.15, 0.9, 1],
-          }}
-          transition={{
+          } : {}}
+          transition={shouldAnimate ? {
             duration: 20,
             repeat: Infinity,
             ease: "easeInOut",
-          }}
+          } : undefined}
           className="absolute top-[10%] right-[10%] w-[350px] h-[350px] rounded-full bg-primary/15 blur-[120px]"
         />
         {/* Cyan Sphere */}
         <motion.div
-          animate={{
+          animate={shouldAnimate ? {
             x: [0, -60, 40, 0],
             y: [0, 50, -40, 0],
             scale: [1, 0.85, 1.1, 1],
-          }}
-          transition={{
+          } : {}}
+          transition={shouldAnimate ? {
             duration: 18,
             repeat: Infinity,
             ease: "easeInOut",
-          }}
+          } : undefined}
           className="absolute bottom-[20%] left-[10%] w-[400px] h-[400px] rounded-full bg-secondary/10 blur-[130px]"
         />
         {/* Purple Sphere */}
         <motion.div
-          animate={{
+          animate={shouldAnimate ? {
             x: [0, 30, -50, 0],
             y: [0, 60, -30, 0],
-          }}
-          transition={{
+          } : {}}
+          transition={shouldAnimate ? {
             duration: 22,
             repeat: Infinity,
             ease: "easeInOut",
-          }}
+          } : undefined}
           className="absolute top-[40%] left-1/3 w-[300px] h-[300px] rounded-full bg-accent/10 blur-[110px]"
         />
         {/* Grid pattern overlay */}
@@ -137,8 +150,8 @@ export function Hero() {
             
             {/* Card 1: Cloud Uptime (Bobbing up/down) */}
             <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              animate={shouldAnimate ? { y: [0, -6, 0] } : {}}
+              transition={shouldAnimate ? { duration: 5, repeat: Infinity, ease: "easeInOut" } : undefined}
               className="w-[90%] self-start"
             >
               <CardPremium variant="glass-premium" glowColor="primary" hoverEffect="glow" className="p-5">
@@ -160,8 +173,8 @@ export function Hero() {
 
             {/* Card 2: Security Health (Bobs offset) */}
             <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              animate={shouldAnimate ? { y: [0, 6, 0] } : {}}
+              transition={shouldAnimate ? { duration: 6, repeat: Infinity, ease: "easeInOut" } : undefined}
               className="w-[90%] self-end"
             >
               <CardPremium variant="glass-premium" glowColor="secondary" hoverEffect="glow" className="p-5">
@@ -182,8 +195,8 @@ export function Hero() {
 
             {/* Card 3: Network Latency (Bobs faster) */}
             <motion.div
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              animate={shouldAnimate ? { y: [0, -5, 0] } : {}}
+              transition={shouldAnimate ? { duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 } : undefined}
               className="w-[90%] self-start"
             >
               <CardPremium variant="glass" glowColor="accent" hoverEffect="glow" className="p-4 flex items-center justify-between">

@@ -218,7 +218,7 @@ export function Expertise() {
             <div className="lg:col-span-5 flex items-center justify-center w-full">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
-                src="/ai-brain.jpg" 
+                src="/ai-brain.webp" 
                 alt="AI Deep Learning Brain and Laptop" 
                 className="w-full h-auto object-contain max-h-[220px] rounded-xl transition-transform duration-500 hover:scale-102"
               />

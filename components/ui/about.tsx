@@ -157,7 +157,7 @@ export function About() {
           <CardPremium variant="glass-premium" glowColor="accent" hoverEffect="glow" className="overflow-hidden p-0 w-full bg-slate-950/40">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
-              src="/teamwork.jpg" 
+              src="/teamwork.webp" 
               alt="Shivcore Tech Team Collaboration" 
               className="w-full aspect-[16/10] object-cover transition-transform duration-500 hover:scale-105"
             />
@@ -171,7 +171,7 @@ export function About() {
           <CardPremium variant="glass-premium" glowColor="primary" hoverEffect="glow" className="overflow-hidden p-0 w-full bg-slate-950/40">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
-              src="/city-hand.jpg" 
+              src="/city-hand.webp" 
               alt="Digital Solutions Infrastructure" 
               className="w-full aspect-[16/10] object-cover transition-transform duration-500 hover:scale-105"
             />

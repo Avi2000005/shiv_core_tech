@@ -66,7 +66,7 @@ export function Navbar() {
         <a href="#" className="flex items-center gap-2 group cursor-pointer select-none" aria-label="Shivcore Tech Home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
-            src="/logo.jpg" 
+            src="/logo.webp" 
             alt="Shivcore Tech Logo" 
             className="h-9 w-auto object-contain mix-blend-screen group-hover:scale-105 transition-transform duration-300" 
           />

@@ -146,7 +146,7 @@ export function Portfolio() {
                     <div className="flex-grow flex items-center justify-center p-6 sm:p-8">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img 
-                        src="/dashboard.jpg" 
+                        src="/dashboard.webp" 
                         alt="Santparampara Web Platform Dashboard" 
                         className="w-full h-auto object-contain max-h-[280px] transition-transform duration-500 hover:scale-102"
                       />

@@ -94,7 +94,7 @@ export function Footer() {
           <a href="#" className="flex items-center gap-2 group cursor-pointer select-none">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
-              src="/logo.jpg" 
+              src="/logo.webp" 
               alt="Shivcore Tech Logo" 
               className="h-8 w-auto object-contain mix-blend-screen group-hover:scale-105 transition-transform duration-300" 
             />

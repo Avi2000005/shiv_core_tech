@@ -26,6 +26,7 @@ interface JobRole {
   title: string;
   type: string;
   experience: string;
+  location?: string;
   glowColor: "primary" | "secondary" | "accent";
 }
 

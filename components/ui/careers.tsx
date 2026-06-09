@@ -3,10 +3,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Briefcase, User, Mail, Phone, UploadCloud, FileText, 
-  CheckCircle, X, ChevronDown, Sparkles, Clock, MapPin, 
-  ShieldCheck, Zap, Laptop, ArrowRight
+import {
+  Briefcase, User, Mail, Phone, UploadCloud, FileText,
+  CheckCircle, X, ChevronDown, Sparkles, Clock, MapPin,
+  ShieldCheck, Zap, ArrowRight
 } from "lucide-react";
 import { CardPremium } from "./card-premium";
 import { Section } from "./section";
@@ -25,40 +25,51 @@ interface JobRole {
   id: string;
   title: string;
   type: string;
-  location: string;
   experience: string;
   glowColor: "primary" | "secondary" | "accent";
 }
 
 export function Careers() {
   const [successData, setSuccessData] = useState<CareerFormValues | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const roles: JobRole[] = [
     {
-      id: "lead-engineer",
-      title: "Lead Full Stack Engineer",
-      type: "Full-Time",
-      location: "Remote (India)",
-      experience: "5+ Years",
+      id: "intern",
+      title: "Intern",
+      type: "Internship",
+      experience: "0-1 Year",
       glowColor: "primary",
     },
     {
-      id: "nextjs-dev",
-      title: "React & Next.js Developer",
+      id: "cloud-dev",
+      title: "Cloud Developer",
       type: "Full-Time",
-      location: "Remote (India)",
       experience: "2+ Years",
       glowColor: "secondary",
     },
     {
-      id: "ui-designer",
-      title: "UI/UX Product Designer",
+      id: "web-dev",
+      title: "Web Developer",
       type: "Full-Time",
-      location: "Hybrid (Pune)",
-      experience: "3+ Years",
+      experience: "1+ Years",
       glowColor: "accent",
+    },
+    {
+      id: "ai-ml-expert",
+      title: "AI/ML Expert",
+      type: "Full-Time",
+      experience: "3+ Years",
+      glowColor: "primary",
+    },
+    {
+      id: "graphic-designer",
+      title: "Graphic Designer",
+      type: "Full-Time",
+      experience: "2+ Years",
+      glowColor: "secondary",
     },
   ];
 
@@ -102,9 +113,9 @@ export function Careers() {
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           ];
           return (
-            allowedTypes.includes(value.type) || 
-            value.name.endsWith(".pdf") || 
-            value.name.endsWith(".doc") || 
+            allowedTypes.includes(value.type) ||
+            value.name.endsWith(".pdf") ||
+            value.name.endsWith(".doc") ||
             value.name.endsWith(".docx") ||
             "Supported formats: PDF, Word (.doc, .docx)"
           );
@@ -159,14 +170,38 @@ export function Careers() {
 
   // Form submission handler
   const onSubmit = async (data: CareerFormValues) => {
-    // Simulate API request delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setSuccessData(data);
+    setSubmitError(null);
+    try {
+      const formData = new FormData();
+      formData.append("position", data.position);
+      formData.append("fullName", data.fullName);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      formData.append("coverLetter", data.coverLetter);
+      if (data.resume) {
+        formData.append("resume", data.resume);
+      }
+
+      const response = await fetch("/api/apply", {
+        method: "POST",
+        body: formData,
+      });
+
+      const resData = await response.json();
+      if (!response.ok) {
+        throw new Error(resData.error || "Failed to submit application");
+      }
+
+      setSuccessData(data);
+    } catch (err: any) {
+      setSubmitError(err.message || "Something went wrong. Please try again.");
+    }
   };
 
   const handleResetForm = () => {
     reset();
     setSuccessData(null);
+    setSubmitError(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -190,7 +225,7 @@ export function Careers() {
   return (
     <Section id="careers" spacing="lg" containerSize="xl" className="border-b border-border/10" variant="dots">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        
+
         {/* Left Side: Career Perks & Listings */}
         <div className="lg:col-span-5 space-y-8">
           <div>
@@ -203,7 +238,7 @@ export function Careers() {
               <Sparkles className="w-3.5 h-3.5 text-accent animate-pulse" />
               <span>We Are Hiring</span>
             </motion.div>
-            
+
             <motion.h2
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -213,7 +248,7 @@ export function Careers() {
             >
               Join the Core of Innovation
             </motion.h2>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -221,18 +256,13 @@ export function Careers() {
               transition={{ delay: 0.2 }}
               className="mt-4 text-muted-foreground font-sans leading-relaxed text-base"
             >
-              At Shivcore Tech, we translate complex legacy challenges into streamlined digital architecture. 
+              At Shivcore Tech, we translate complex legacy challenges into streamlined digital architecture.
               We value clean execution, high reliability, and deep technical ownership.
             </motion.p>
           </div>
 
           {/* Perks Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <CardPremium variant="glass" glowColor="primary" hoverEffect="scale" className="p-4 flex flex-col gap-2">
-              <Laptop className="w-5 h-5 text-primary" />
-              <h4 className="font-semibold text-foreground text-sm font-sans">Remote-First</h4>
-              <p className="text-xs text-muted-foreground font-sans">Flexible operations built around collaborative engineering standards.</p>
-            </CardPremium>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <CardPremium variant="glass" glowColor="secondary" hoverEffect="scale" className="p-4 flex flex-col gap-2">
               <Zap className="w-5 h-5 text-secondary" />
               <h4 className="font-semibold text-foreground text-sm font-sans">Tech Stack</h4>
@@ -273,9 +303,9 @@ export function Careers() {
                     </span>
                   </div>
                 </div>
-                <Button 
-                  variant="ghost" 
-                  size="icon-sm" 
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
                   className={`rounded-full group-hover:translate-x-1 transition-transform
                     ${role.glowColor === "primary" ? "text-primary" : ""}
                     ${role.glowColor === "secondary" ? "text-secondary" : ""}
@@ -291,10 +321,10 @@ export function Careers() {
 
         {/* Right Side: Form Card */}
         <div id="careers-form" className="lg:col-span-7 w-full">
-          <CardPremium 
-            variant="glass-premium" 
-            glowColor={selectedPosition ? (roles.find(r => r.id === selectedPosition)?.glowColor || "accent") : "accent"} 
-            hoverEffect="none" 
+          <CardPremium
+            variant="glass-premium"
+            glowColor={selectedPosition ? (roles.find(r => r.id === selectedPosition)?.glowColor || "accent") : "accent"}
+            hoverEffect="none"
             className="p-6 sm:p-8 relative min-h-[500px]"
           >
             <AnimatePresence mode="wait">
@@ -312,6 +342,12 @@ export function Careers() {
                     <h3 className="text-xl font-bold text-foreground font-heading">Submit Your Application</h3>
                     <p className="text-xs text-muted-foreground mt-1 font-sans">Provide your details and custom portfolio links to apply.</p>
                   </div>
+
+                  {submitError && (
+                    <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-sans">
+                      {submitError}
+                    </div>
+                  )}
 
                   {/* Field: Job Position */}
                   <div className="space-y-2">
@@ -358,7 +394,7 @@ export function Careers() {
                           id="fullName"
                           type="text"
                           aria-invalid={errors.fullName ? "true" : "false"}
-                          placeholder="e.g., Sachin Kangane"
+                          placeholder=""
                           {...register("fullName", {
                             required: "Full name is required",
                             minLength: { value: 2, message: "Name must be at least 2 characters" }
@@ -386,7 +422,7 @@ export function Careers() {
                           id="email"
                           type="email"
                           aria-invalid={errors.email ? "true" : "false"}
-                          placeholder="e.g., sachin@shivcore.tech"
+                          placeholder=""
                           {...register("email", {
                             required: "Email is required",
                             pattern: {
@@ -418,7 +454,7 @@ export function Careers() {
                         id="phone"
                         type="tel"
                         aria-invalid={errors.phone ? "true" : "false"}
-                        placeholder="e.g., +91 98765 43210"
+                        placeholder=""
                         {...register("phone", {
                           required: "Phone number is required",
                           pattern: {
@@ -449,7 +485,7 @@ export function Careers() {
                       accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                       className="sr-only"
                     />
-                    
+
                     <div
                       onDragOver={handleDragOver}
                       onDragLeave={handleDragLeave}
@@ -535,9 +571,9 @@ export function Careers() {
 
                   {/* Submit Button */}
                   <div className="pt-2">
-                    <Button 
-                      variant="glow" 
-                      type="submit" 
+                    <Button
+                      variant="glow"
+                      type="submit"
                       className="w-full h-11 justify-center rounded-lg gap-2 cursor-pointer font-semibold text-sm"
                       disabled={isSubmitting}
                     >
@@ -576,7 +612,7 @@ export function Careers() {
                   <div className="space-y-2">
                     <h3 className="text-2xl font-bold text-foreground font-heading">Application Submitted!</h3>
                     <p className="text-sm text-muted-foreground font-sans max-w-sm">
-                      Thank you for applying, <span className="text-foreground font-semibold">{successData.fullName}</span>. 
+                      Thank you for applying, <span className="text-foreground font-semibold">{successData.fullName}</span>.
                       Our HR team has received your application for the <span className="text-primary font-semibold">{getPositionLabel(successData.position)}</span> role.
                     </p>
                   </div>
@@ -607,8 +643,8 @@ export function Careers() {
                   </div>
 
                   <div className="pt-4 w-full max-w-md">
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       onClick={handleResetForm}
                       className="w-full h-10 rounded-lg justify-center cursor-pointer text-xs"
                     >

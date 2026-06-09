@@ -2,9 +2,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Shield, Sparkles, Activity, Server } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "./button";
-import { CardPremium } from "./card-premium";
 import { Container } from "./container";
 
 export function Hero() {
@@ -72,10 +71,10 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
       </div>
 
-      <Container size="xl" className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <Container size="xl" className="relative z-10 flex flex-col items-center justify-center text-center">
         
-        {/* Left Column: Headline and CTAs */}
-        <div className="lg:col-span-7 flex flex-col items-start text-left">
+        {/* Center Headline and CTAs */}
+        <div className="max-w-3xl flex flex-col items-center">
           
           {/* Tagline Badge */}
           <motion.div
@@ -117,7 +116,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-10 flex flex-wrap gap-4 items-center"
+            className="mt-10 flex flex-wrap gap-4 items-center justify-center"
           >
             <Button 
               variant="glow" 
@@ -137,82 +136,6 @@ export function Hero() {
               Book Consultation
             </Button>
           </motion.div>
-        </div>
-
-        {/* Right Column: Floating Telemetry Metric Glass Cards */}
-        <div className="lg:col-span-5 relative w-full flex items-center justify-center lg:justify-end mt-12 lg:mt-0">
-          
-          {/* Dynamic glowing background backplate */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-primary/5 blur-[80px] -z-10 pointer-events-none" />
-
-          {/* Staggered stack of bobbing glass cards that never overlap */}
-          <div className="flex flex-col gap-6 w-full max-w-[380px]">
-            
-            {/* Card 1: Cloud Uptime (Bobbing up/down) */}
-            <motion.div
-              animate={shouldAnimate ? { y: [0, -6, 0] } : {}}
-              transition={shouldAnimate ? { duration: 5, repeat: Infinity, ease: "easeInOut" } : undefined}
-              className="w-[90%] self-start"
-            >
-              <CardPremium variant="glass-premium" glowColor="primary" hoverEffect="glow" className="p-5">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-primary/10 text-primary border border-primary/20">
-                    <Activity className="w-5 h-5 glow-primary" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase font-mono tracking-widest text-muted-foreground">System Reliability</span>
-                    <h3 className="text-xl font-bold text-foreground mt-0.5 font-heading">99.99% Uptime</h3>
-                  </div>
-                </div>
-                <div className="mt-3 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-                  <span className="text-xs text-muted-foreground font-sans">Active in 8 global zones</span>
-                </div>
-              </CardPremium>
-            </motion.div>
-
-            {/* Card 2: Security Health (Bobs offset) */}
-            <motion.div
-              animate={shouldAnimate ? { y: [0, 6, 0] } : {}}
-              transition={shouldAnimate ? { duration: 6, repeat: Infinity, ease: "easeInOut" } : undefined}
-              className="w-[90%] self-end"
-            >
-              <CardPremium variant="glass-premium" glowColor="secondary" hoverEffect="glow" className="p-5">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-secondary/10 text-secondary border border-secondary/20">
-                    <Shield className="w-5 h-5 glow-secondary" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase font-mono tracking-widest text-muted-foreground">Compliance Shield</span>
-                    <h3 className="text-xl font-bold text-foreground mt-0.5 font-heading">Enterprise Safe</h3>
-                  </div>
-                </div>
-                <p className="text-xs text-muted-foreground mt-2 leading-relaxed font-sans">
-                  End-to-end telemetry encryption and automated threat defense configured.
-                </p>
-              </CardPremium>
-            </motion.div>
-
-            {/* Card 3: Network Latency (Bobs faster) */}
-            <motion.div
-              animate={shouldAnimate ? { y: [0, -5, 0] } : {}}
-              transition={shouldAnimate ? { duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 } : undefined}
-              className="w-[90%] self-start"
-            >
-              <CardPremium variant="glass" glowColor="accent" hoverEffect="glow" className="p-4 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="p-1.5 rounded-lg bg-accent/10 text-accent border border-accent/20">
-                    <Server className="w-4 h-4 glow-accent" />
-                  </div>
-                  <div>
-                    <span className="text-[9px] uppercase font-mono tracking-widest text-muted-foreground">Cloud Node Latency</span>
-                    <h4 className="text-sm font-bold text-foreground font-heading">12ms Edge Delay</h4>
-                  </div>
-                </div>
-                <span className="text-xs font-semibold text-secondary font-mono">Fast</span>
-              </CardPremium>
-            </motion.div>
-          </div>
         </div>
       </Container>
     </section>

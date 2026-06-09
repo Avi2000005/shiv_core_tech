@@ -2,18 +2,11 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Target, Eye, Users, Award, MapPin, Shield } from "lucide-react";
+import { Target, Eye } from "lucide-react";
 import { CardPremium } from "./card-premium";
 import { Section } from "./section";
 
 export function About() {
-  const stats = [
-    { value: "150+", label: "Projects Delivered", icon: Award, color: "text-primary" },
-    { value: "40+", label: "Digital Partners", icon: Users, color: "text-secondary" },
-    { value: "15+", label: "Active States in India", icon: MapPin, color: "text-accent" },
-    { value: "99%", label: "Client Satisfaction", icon: Shield, color: "text-primary" },
-  ];
-
   const values = [
     { title: "Innovation", desc: "Pushing boundaries to craft future-proof, robust solutions." },
     { title: "Accessibility", desc: "Making advanced technology readable, reliable, and easily deployable." },
@@ -69,60 +62,6 @@ export function About() {
             </div>
           </div>
 
-          {/* Stats Grid */}
-          <div className="space-y-3">
-            <h3 className="typography-h3 text-foreground font-heading">Our Scale</h3>
-            <div className="grid grid-cols-2 gap-4">
-              {stats.map((s, idx) => {
-                const Icon = s.icon;
-                return (
-                  <CardPremium key={idx} variant="glass" glowColor="none" hoverEffect="scale" className="p-5 flex items-center gap-4">
-                    <div className={`p-2.5 rounded-lg bg-card border border-border/20 ${s.color}`}>
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span className="block text-2xl font-bold text-foreground font-heading">{s.value}</span>
-                      <span className="text-[10px] text-muted-foreground uppercase font-sans font-medium tracking-wider">{s.label}</span>
-                    </div>
-                  </CardPremium>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Leadership Profiles */}
-          <div className="p-6 rounded-2xl bg-card border border-border/20">
-            <h3 className="typography-h3 text-foreground mb-4 font-heading">Leadership</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Founder Profile */}
-              <div className="p-4 rounded-xl border border-border/10 bg-background/50 flex flex-col justify-between">
-                <div>
-                  <div className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center font-heading text-primary font-bold">
-                    RK
-                  </div>
-                  <h4 className="font-bold text-foreground text-sm font-sans mt-3">Renuka Kangane</h4>
-                  <span className="text-[10px] text-primary font-mono uppercase font-bold tracking-wider">Founder</span>
-                </div>
-                <p className="text-xs text-muted-foreground mt-2 leading-relaxed font-sans">
-                  Steering brand direction and establishing technical standards across cloud operations.
-                </p>
-              </div>
-
-              {/* CEO Profile */}
-              <div className="p-4 rounded-xl border border-border/10 bg-background/50 flex flex-col justify-between">
-                <div>
-                  <div className="w-10 h-10 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center font-heading text-secondary font-bold">
-                    SK
-                  </div>
-                  <h4 className="font-bold text-foreground text-sm font-sans mt-3">Sachin Kangane</h4>
-                  <span className="text-[10px] text-secondary font-mono uppercase font-bold tracking-wider">CEO</span>
-                </div>
-                <p className="text-xs text-muted-foreground mt-2 leading-relaxed font-sans">
-                  Guiding corporate acceleration, partnership structures, and national execution.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Right Column: Staggered Team Collaboration, Mission, Vision, and Digital City */}

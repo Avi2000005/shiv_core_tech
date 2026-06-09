@@ -18,10 +18,10 @@ interface TestimonialItem {
 export function Testimonials() {
   const testimonials: TestimonialItem[] = [
     {
-      name: "Prabhakar Shastri",
-      role: "Founder & Spiritual Director",
+      name: "Omprakash",
+      role: "Founder & Owner",
       company: "Santparampara.com",
-      quote: "Working with Shivcore Tech was an exceptional experience. They turned our legacy web portal concepts into a fast, highly secure platform with flawless architectural execution.",
+      quote: "Shivcore Tech understood our requirements clearly and delivered the website on time. The team was professional, responsive, and ensured the final product reflected our vision perfectly",
       rating: 5,
       glowColor: "primary",
     },

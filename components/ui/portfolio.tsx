@@ -2,10 +2,9 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Sparkles, FolderGit2, Database } from "lucide-react";
+import { Sparkles, Database } from "lucide-react";
 import { CardPremium } from "./card-premium";
 import { Section } from "./section";
-import { Button } from "./button";
 
 interface ProjectItem {
   id: string;
@@ -28,13 +27,13 @@ export function Portfolio() {
       category: "cloud",
       categoryLabel: "Legacy Cloud Migration",
       client: "Santparampara.com",
-      description: "Full modernization and containerization of legacy web application workloads into secure cloud nodes.",
+      description: "Built a modern Marathi e-commerce platform for Sant Parampara, empowering the Warkari community through digital access to authentic spiritual products, devotional resources, and culturally rich experiences in their native language.",
       details: [
-        "Transitioned legacy databases with zero downtime",
-        "Decreased cloud billing costs by 30%",
-        "Implemented secure automated deployment pipelines"
+        "Delivered a Marathi-first digital commerce experience for the Warkari community",
+        "Streamlined product discovery and purchasing with an intuitive user journey",
+        "Built a responsive and scalable e-commerce platform optimized for growth"
       ],
-      techStack: ["AWS Cloud", "Docker", "Express", "MongoDB"],
+      techStack: ["WordPress", "WooCommerce", "PHP", "MySQL"],
       icon: Database,
       glowColor: "secondary",
     },
@@ -87,11 +86,8 @@ export function Portfolio() {
                   {/* Left Column: Case Study Details */}
                   <div className="lg:col-span-6 p-6 sm:p-8 flex flex-col justify-between h-full text-left">
                     <div className="space-y-6">
-                      {/* Header: Category & client details */}
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] uppercase font-mono tracking-widest px-2 py-0.5 rounded border bg-secondary/5 border-secondary/20 text-secondary">
-                          {p.categoryLabel}
-                        </span>
+                      {/* Header: Client details */}
+                      <div className="flex items-center justify-end">
                         <span className="text-xs text-muted-foreground font-sans font-semibold">
                           {p.client}
                         </span>
@@ -121,8 +117,8 @@ export function Portfolio() {
                       </ul>
                     </div>
 
-                    {/* Tech Stack & Action links */}
-                    <div className="mt-8 pt-4 border-t border-border/10 space-y-4">
+                    {/* Tech Stack */}
+                    <div className="mt-8 pt-4 border-t border-border/10">
                       <div className="flex flex-wrap gap-1.5">
                         {p.techStack.map((tech, tIdx) => (
                           <span key={tIdx} className="text-[10px] bg-white/5 border border-white/5 px-2 py-0.5 rounded text-muted-foreground font-mono">
@@ -130,30 +126,22 @@ export function Portfolio() {
                           </span>
                         ))}
                       </div>
-                      <Button 
-                        variant="ghost" 
-                        onClick={() => window.open("#", "_self")}
-                        className="w-full justify-center text-xs rounded-lg gap-2 cursor-pointer hover:bg-secondary/10 hover:text-secondary"
-                      >
-                        <FolderGit2 className="w-3.5 h-3.5" />
-                        <span>Case Studies Overview</span>
-                      </Button>
                     </div>
                   </div>
 
-                  {/* Right Column: Dashboard Image Showcase (Side-by-Side) */}
+                  {/* Right Column: Platform Showcase (Side-by-Side) */}
                   <div className="lg:col-span-6 flex flex-col justify-between bg-black/10 border-t lg:border-t-0 lg:border-l border-border/5">
                     <div className="flex-grow flex items-center justify-center p-6 sm:p-8">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img 
-                        src="/dashboard.webp" 
-                        alt="Santparampara Web Platform Dashboard" 
+                        src="/santparampara.png" 
+                        alt="Santparampara E-commerce Platform" 
                         className="w-full h-auto object-contain max-h-[280px] transition-transform duration-500 hover:scale-102"
                       />
                     </div>
                     <div className="p-4 text-center border-t border-border/5 bg-slate-950/20">
                       <span className="text-[10px] uppercase font-mono tracking-widest text-muted-foreground block">
-                        Interactive Dashboard Showcase
+                        Interactive Platform Showcase
                       </span>
                     </div>
                   </div>

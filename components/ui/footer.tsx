@@ -206,7 +206,7 @@ export function Footer() {
             <li className="flex items-start gap-3">
               <MapPin className="h-4 w-4 text-accent shrink-0 mt-0.5" />
               <span className="text-sm text-muted-foreground font-sans leading-relaxed">
-                N4 CIDCO, Chhatrapati Sambhaji Nagar, Maharashtra, India
+                Plot No 131, Jai Bhavani Nagar, Line no. 12, Tirupati Colony, N4 CIDCO, Chhatrapati Sambhaji Nagar, Maharashtra, India
               </span>
             </li>
           </ul>
@@ -217,11 +217,11 @@ export function Footer() {
       {/* Footer Bottom Bar */}
       <Container size="xl" className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-xs text-muted-foreground/60 font-sans text-center md:text-left">
-          Copyright &copy; 2026 Shivcore Tech. All rights reserved.
+          Copyright &copy; 2026 RENVORA TECHNOLOGIES PRIVATE LIMITED. All rights reserved.
         </p>
         
         <div className="flex flex-wrap justify-center gap-6 text-xs text-muted-foreground/60 font-sans">
-          <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
+          <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Privacy Policy</a>
           <a href="#" className="hover:text-foreground transition-colors">Terms of Service</a>
         </div>
       </Container>

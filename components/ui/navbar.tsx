@@ -71,7 +71,7 @@ export function Navbar() {
             className="h-9 w-auto object-contain mix-blend-screen group-hover:scale-105 transition-transform duration-300" 
           />
           <span className="font-heading text-lg font-bold tracking-wider text-foreground group-hover:text-primary transition-colors duration-300">
-            SHIVCORE
+            SHIVCORE TECH
           </span>
         </a>
 

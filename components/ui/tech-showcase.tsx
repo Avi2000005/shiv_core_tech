@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { 
   Code, Layers, Database, Cloud, Sparkles, Palette,
-  Zap, Server, Cpu, Terminal
+  Zap, Server, Cpu, Terminal, CreditCard, Globe,
+  Package, Shield, GitBranch, Brain
 } from "lucide-react";
 import { CardPremium } from "./card-premium";
 import { Section } from "./section";
@@ -31,36 +32,56 @@ export function TechShowcase() {
   ];
 
   const technologies: TechItem[] = [
-    // Frontend
-    { name: "React", category: "frontend", description: "Standard component UI library.", icon: Layers, glowColor: "primary", tag: "Library" },
-    { name: "Next.js", category: "frontend", description: "SSR & Static Web Framework.", icon: Zap, glowColor: "primary", tag: "Framework" },
-    { name: "TypeScript", category: "frontend", description: "Typed superset of JavaScript.", icon: Code, glowColor: "primary", tag: "Language" },
-    { name: "HTML", category: "frontend", description: "Standard web document markup.", icon: Code, glowColor: "primary", tag: "Markup" },
-    { name: "CSS", category: "frontend", description: "Tailwind utility styling system.", icon: Palette, glowColor: "primary", tag: "Styling" },
-    
-    // Backend
-    { name: "Node.js", category: "backend", description: "V8 javascript runtime engine.", icon: Terminal, glowColor: "secondary", tag: "Runtime" },
-    { name: "PHP", category: "backend", description: "Backend web scripting language.", icon: Server, glowColor: "secondary", tag: "Language" },
-    { name: "Express", category: "backend", description: "REST micro-framework.", icon: Terminal, glowColor: "secondary", tag: "Framework" },
-    
-    // Databases
-    { name: "MongoDB", category: "database", description: "NoSQL document store.", icon: Database, glowColor: "secondary", tag: "NoSQL" },
-    { name: "PostgreSQL", category: "database", description: "Relational database server.", icon: Database, glowColor: "secondary", tag: "SQL" },
-    { name: "MySQL", category: "database", description: "Structured query repository.", icon: Database, glowColor: "secondary", tag: "SQL" },
-    { name: "Firebase", category: "database", description: "Realtime cloud datastore.", icon: Cloud, glowColor: "secondary", tag: "BaaS" },
-    
-    // Cloud
-    { name: "AWS", category: "cloud", description: "Global elastic infrastructure.", icon: Cloud, glowColor: "primary", tag: "IaaS" },
-    { name: "Vercel", category: "cloud", description: "Serverless web deployment node.", icon: Zap, glowColor: "primary", tag: "Paas" },
-    { name: "Render", category: "cloud", description: "Containerized app scaling engine.", icon: Cloud, glowColor: "primary", tag: "PaaS" },
-    
-    // AI
-    { name: "OpenAI", category: "ai", description: "GPT semantic integration.", icon: Cpu, glowColor: "accent", tag: "LLM API" },
-    
-    // Design
-    { name: "Figma", category: "design", description: "High-fidelity canvas prototyping.", icon: Palette, glowColor: "accent", tag: "UI/UX" },
-  ];
+  // Frontend
+  { name: "React", category: "frontend", description: "Component-based UI library.", icon: Layers, glowColor: "primary", tag: "Library" },
+  { name: "Next.js", category: "frontend", description: "React framework for modern web applications.", icon: Zap, glowColor: "primary", tag: "Framework" },
+  { name: "TypeScript", category: "frontend", description: "Strongly typed JavaScript language.", icon: Code, glowColor: "primary", tag: "Language" },
+  { name: "HTML", category: "frontend", description: "Standard language for web structure.", icon: Code, glowColor: "primary", tag: "Markup" },
+  { name: "CSS", category: "frontend", description: "Stylesheet language for web design.", icon: Palette, glowColor: "primary", tag: "Styling" },
+  { name: "Vue.js", category: "frontend", description: "Progressive JavaScript framework.", icon: Layers, glowColor: "primary", tag: "Framework" },
+  { name: "Angular", category: "frontend", description: "Enterprise-grade frontend framework.", icon: Layers, glowColor: "primary", tag: "Framework" },
+  { name: "Redux", category: "frontend", description: "Predictable state management library.", icon: Layers, glowColor: "primary", tag: "State" },
+  { name: "Framer Motion", category: "frontend", description: "Animation library for React.", icon: Zap, glowColor: "primary", tag: "Animation" },
 
+  // Backend
+  { name: "Node.js", category: "backend", description: "JavaScript runtime for server applications.", icon: Terminal, glowColor: "secondary", tag: "Runtime" },
+  { name: "PHP", category: "backend", description: "Popular server-side scripting language.", icon: Server, glowColor: "secondary", tag: "Language" },
+  { name: "Express", category: "backend", description: "Minimalist Node.js web framework.", icon: Terminal, glowColor: "secondary", tag: "Framework" },
+  { name: "Laravel", category: "backend", description: "Elegant PHP web application framework.", icon: Server, glowColor: "secondary", tag: "Framework" },
+  { name: "NestJS", category: "backend", description: "Scalable framework for Node.js applications.", icon: Server, glowColor: "secondary", tag: "Framework" },
+  { name: "Python", category: "backend", description: "Versatile programming language.", icon: Code, glowColor: "secondary", tag: "Language" },
+  { name: "Django", category: "backend", description: "High-level Python web framework.", icon: Server, glowColor: "secondary", tag: "Framework" },
+  { name: "FastAPI", category: "backend", description: "High-performance framework for APIs.", icon: Zap, glowColor: "secondary", tag: "API" },
+  { name: "WordPress", category: "backend", description: "Leading content management system.", icon: Globe, glowColor: "secondary", tag: "CMS" },
+  { name: "Razorpay", category: "backend", description: "Secure payment gateway solution.", icon: CreditCard, glowColor: "secondary", tag: "Gateway" },
+  { name: "Stripe", category: "backend", description: "Global online payment platform.", icon: CreditCard, glowColor: "secondary", tag: "Gateway" },
+
+  // Databases
+  { name: "MongoDB", category: "database", description: "Document-oriented NoSQL database.", icon: Database, glowColor: "secondary", tag: "NoSQL" },
+  { name: "PostgreSQL", category: "database", description: "Advanced open-source SQL database.", icon: Database, glowColor: "secondary", tag: "SQL" },
+  { name: "MySQL", category: "database", description: "Widely used relational database.", icon: Database, glowColor: "secondary", tag: "SQL" },
+  { name: "Firebase", category: "database", description: "Google's backend-as-a-service platform.", icon: Cloud, glowColor: "secondary", tag: "BaaS" },
+  { name: "Redis", category: "database", description: "In-memory data structure store.", icon: Database, glowColor: "secondary", tag: "Cache" },
+  { name: "Supabase", category: "database", description: "Open-source Firebase alternative.", icon: Cloud, glowColor: "secondary", tag: "BaaS" },
+
+  // Cloud & Infrastructure
+  { name: "AWS", category: "cloud", description: "Comprehensive cloud computing platform.", icon: Cloud, glowColor: "primary", tag: "Cloud" },
+  { name: "Vercel", category: "cloud", description: "Platform for frontend deployment.", icon: Zap, glowColor: "primary", tag: "PaaS" },
+  { name: "Render", category: "cloud", description: "Cloud platform for modern applications.", icon: Cloud, glowColor: "primary", tag: "PaaS" },
+  { name: "Netlify", category: "cloud", description: "Deployment platform for web projects.", icon: Globe, glowColor: "primary", tag: "PaaS" },
+  { name: "Docker", category: "cloud", description: "Containerization platform for applications.", icon: Package, glowColor: "primary", tag: "Containers" },
+  { name: "Cloudflare", category: "cloud", description: "Web performance and security platform.", icon: Shield, glowColor: "primary", tag: "Security" },
+  { name: "GitHub", category: "cloud", description: "Code hosting and collaboration platform.", icon: GitBranch, glowColor: "primary", tag: "Git" },
+
+  // AI
+  { name: "OpenAI", category: "ai", description: "Advanced AI model integrations.", icon: Cpu, glowColor: "accent", tag: "LLM API" },
+  { name: "Claude", category: "ai", description: "AI assistant and language model platform.", icon: Cpu, glowColor: "accent", tag: "LLM API" },
+  { name: "Gemini", category: "ai", description: "Google's multimodal AI platform.", icon: Sparkles, glowColor: "accent", tag: "LLM API" },
+  { name: "Hugging Face", category: "ai", description: "Open-source AI and ML ecosystem.", icon: Brain, glowColor: "accent", tag: "AI Platform" },
+
+  // Design
+  { name: "Figma", category: "design", description: "Collaborative interface design platform.", icon: Palette, glowColor: "accent", tag: "UI/UX" },
+];
   // Filter tech by category
   const filteredTech = technologies.filter((tech) => {
     if (activeTab === "all") return true;
@@ -85,7 +106,7 @@ export function TechShowcase() {
   };
 
   return (
-    <Section id="showcase" spacing="lg" containerSize="xl" className="border-b border-border/10">
+    <Section id="showcase" spacing="lg" containerSize="lg" className="border-b border-border/10">
       <div className="flex flex-col items-center text-center mb-12">
         <motion.div
           initial={{ opacity: 0, y: 15 }}

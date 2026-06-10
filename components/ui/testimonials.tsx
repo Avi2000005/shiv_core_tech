@@ -42,7 +42,7 @@ export function Testimonials() {
   };
 
   return (
-    <Section id="testimonials" spacing="lg" containerSize="xl" className="border-b border-border/10" variant="grid">
+    <Section id="testimonials" spacing="lg" containerSize="lg" className="border-b border-border/10" variant="grid">
       <div className="flex flex-col items-center text-center mb-16">
         <motion.div
           initial={{ opacity: 0, y: 15 }}

@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import React from "react";
 import { Container } from "@/components/ui/container";
 
@@ -8,8 +10,21 @@ export const metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground py-16 md:py-24">
-      <Container size="sm" className="space-y-10">
+    <main className="relative w-full overflow-x-hidden min-h-screen bg-background text-foreground bg-dots-pattern py-16 md:py-24">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 -z-10 h-[500px] w-[800px] bg-[radial-gradient(ellipse_at_top_right,rgba(0,192,255,0.08),transparent_60%)] opacity-40 pointer-events-none" />
+      <div className="absolute top-[20%] left-0 -z-10 h-[500px] w-[800px] bg-[radial-gradient(ellipse_at_bottom_left,rgba(255,122,0,0.04),transparent_60%)] opacity-10 pointer-events-none" />
+
+      <Container size="sm" className="relative z-10 space-y-10">
+
+        {/* Back Arrow */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
+          Back to Home
+        </Link>
         
         {/* Title Header */}
         <div className="space-y-4 border-b border-border/10 pb-8 text-left">

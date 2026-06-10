@@ -33,14 +33,14 @@ export function Portfolio() {
         "Streamlined product discovery and purchasing with an intuitive user journey",
         "Built a responsive and scalable e-commerce platform optimized for growth"
       ],
-      techStack: ["WordPress", "WooCommerce", "PHP", "MySQL"],
+      techStack: ["WordPress", "WooCommerce", "Razorpay", "MySQL", "Hostinger"],
       icon: Database,
       glowColor: "secondary",
     },
   ];
 
   return (
-    <Section id="portfolio" spacing="lg" containerSize="xl" className="border-b border-border/10" variant="grid">
+    <Section id="portfolio" spacing="lg" containerSize="lg" className="border-b border-border/10" variant="grid">
       <div className="flex flex-col items-center text-center mb-16">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -64,7 +64,7 @@ export function Portfolio() {
       </div>
 
       {/* Grid mapping projects as unified horizontal cards */}
-      <div className="w-full max-w-5xl mx-auto">
+      <div className="w-full">
         {projects.map((p) => {
           const Icon = p.icon;
           return (
@@ -80,7 +80,7 @@ export function Portfolio() {
                 variant="glass-premium"
                 glowColor={p.glowColor}
                 hoverEffect="glow"
-                className="overflow-hidden p-0 w-full bg-slate-950/40"
+                className="overflow-hidden p-0 w-full bg-card/40"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
                   {/* Left Column: Case Study Details */}

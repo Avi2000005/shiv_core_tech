@@ -48,7 +48,7 @@ export function Contact() {
   ];
 
   return (
-    <Section id="contact" spacing="lg" containerSize="xl" className="border-b border-border/10" variant="grid">
+    <Section id="contact" spacing="lg" containerSize="lg" className="border-b border-border/10" variant="grid">
       <div className="flex flex-col items-center text-center mb-16">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -149,7 +149,7 @@ export function Contact() {
               variant="glass"
               glowColor="none"
               hoverEffect="lift"
-              className="p-6 border-border/20 flex flex-col justify-between h-full bg-slate-950/40"
+              className="p-6 border-border/20 flex flex-col justify-between h-full bg-card/40"
             >
               <div>
                 <div className="flex items-center gap-2 mb-4">

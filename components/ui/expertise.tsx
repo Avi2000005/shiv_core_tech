@@ -75,7 +75,7 @@ export function Expertise() {
   };
 
   return (
-    <Section id="expertise" spacing="lg" containerSize="xl" className="border-b border-border/10" variant="dots">
+    <Section id="expertise" spacing="lg" containerSize="lg" className="border-b border-border/10" variant="dots">
       <div className="flex flex-col items-center text-center mb-16">
         <motion.div
           initial={{ opacity: 0, y: 15 }}

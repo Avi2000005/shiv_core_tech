@@ -1,10 +1,11 @@
 "use client";
-
+import Link from "next/link";
 import React from "react";
 import { Container } from "./container";
 import { 
   Mail, Phone, MapPin, MessageSquare
 } from "lucide-react";
+import { TransparentLogo } from "./transparent-logo";
 
 interface FooterLink {
   label: string;
@@ -83,22 +84,22 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative bg-black/60 border-t border-border/15 pt-20 pb-10 overflow-hidden bg-dots-pattern">
+    <footer className="relative dark bg-slate-950 border-t border-border/15 pt-20 pb-10 overflow-hidden bg-dots-pattern">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background pointer-events-none -z-10" />
       <div className="absolute top-0 right-1/4 -z-10 h-[250px] w-[450px] rounded-full bg-primary/5 blur-[90px] pointer-events-none" />
       
-      <Container size="xl" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-border/10">
+      <Container size="lg" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-border/10">
         
         {/* Brand Information Column */}
         <div className="lg:col-span-4 space-y-6">
           <a href="#" className="flex items-center gap-2 group cursor-pointer select-none">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
+            <TransparentLogo 
               src="/logo.webp" 
               alt="Shivcore Tech Logo" 
-              className="h-8 w-auto object-contain mix-blend-screen group-hover:scale-105 transition-transform duration-300" 
+              className="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300" 
+              forceTheme="dark"
             />
-            <span className="font-heading text-base font-bold tracking-wider text-foreground group-hover:text-primary transition-colors duration-300">
+            <span className="font-heading text-lg font-bold tracking-wider bg-gradient-to-r from-[#00C0FF] to-[#FF7A00] bg-clip-text text-transparent transition-all duration-300 group-hover:opacity-90">
               SHIVCORE TECH
             </span>
           </a>
@@ -215,14 +216,14 @@ export function Footer() {
       </Container>
 
       {/* Footer Bottom Bar */}
-      <Container size="xl" className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <Container size="lg" className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-xs text-muted-foreground/60 font-sans text-center md:text-left">
           Copyright &copy; 2026 RENVORA TECHNOLOGIES PRIVATE LIMITED. All rights reserved.
         </p>
         
         <div className="flex flex-wrap justify-center gap-6 text-xs text-muted-foreground/60 font-sans">
-          <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-foreground transition-colors">Terms of Service</a>
+          <Link href="/privacy-policy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+          <Link href="/terms-of-service" className="hover:text-foreground transition-colors">Terms of Service</Link>
         </div>
       </Container>
     </footer>

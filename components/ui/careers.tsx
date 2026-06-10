@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Briefcase, User, Mail, Phone, UploadCloud, FileText,
   CheckCircle, X, ChevronDown, Sparkles, Clock, MapPin,
-  ShieldCheck, Zap, ArrowRight
+  ArrowRight
 } from "lucide-react";
 import { CardPremium } from "./card-premium";
 import { Section } from "./section";
@@ -224,109 +224,98 @@ export function Careers() {
   };
 
   return (
-    <Section id="careers" spacing="lg" containerSize="xl" className="border-b border-border/10" variant="dots">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+    <Section id="careers" spacing="lg" containerSize="lg" className="border-b border-border/10" variant="dots">
+      
+      {/* Centered Premium Header Block */}
+      <div className="flex flex-col items-center text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-3 py-1 text-xs font-semibold text-accent"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-accent animate-pulse" />
+          <span>We Are Hiring</span>
+        </motion.div>
 
-        {/* Left Side: Career Perks & Listings */}
-        <div className="lg:col-span-5 space-y-8">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-3 py-1 text-xs font-semibold text-accent"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-accent animate-pulse" />
-              <span>We Are Hiring</span>
-            </motion.div>
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="mt-4 typography-h1 text-foreground"
+        >
+          Join the Core of Innovation
+        </motion.h2>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="mt-4 typography-h1 text-foreground"
-            >
-              Join the Core of Innovation
-            </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-4 max-w-xl text-muted-foreground font-sans leading-relaxed text-base"
+        >
+          At Shivcore Tech, we translate complex legacy challenges into streamlined digital architecture. 
+          We value clean execution, high reliability, and deep technical ownership.
+        </motion.p>
+      </div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="mt-4 text-muted-foreground font-sans leading-relaxed text-base"
-            >
-              At Shivcore Tech, we translate complex legacy challenges into streamlined digital architecture.
-              We value clean execution, high reliability, and deep technical ownership.
-            </motion.p>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
 
-          {/* Perks Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <CardPremium variant="glass" glowColor="secondary" hoverEffect="scale" className="p-4 flex flex-col gap-2">
-              <Zap className="w-5 h-5 text-secondary" />
-              <h4 className="font-semibold text-foreground text-sm font-sans">Tech Stack</h4>
-              <p className="text-xs text-muted-foreground font-sans">Work with React 19, Turbopack, Tailwind v4, and Node.js APIs.</p>
-            </CardPremium>
-            <CardPremium variant="glass" glowColor="accent" hoverEffect="scale" className="p-4 flex flex-col gap-2">
-              <ShieldCheck className="w-5 h-5 text-accent" />
-              <h4 className="font-semibold text-foreground text-sm font-sans">Growth</h4>
-              <p className="text-xs text-muted-foreground font-sans">Competitive packages, performance awards, and certification budgets.</p>
-            </CardPremium>
-          </div>
-
-          {/* Job Listings List */}
-          <div className="space-y-4 pt-2">
-            <h3 className="typography-h3 text-foreground mb-4">Current Openings</h3>
-            {roles.map((role) => (
-              <CardPremium
-                key={role.id}
-                variant="glass-premium"
-                glowColor={role.glowColor}
-                hoverEffect="lift"
-                className="p-5 flex items-center justify-between gap-4 cursor-pointer"
-                onClick={() => handleSelectRole(role.id)}
-              >
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h4 className="font-bold text-foreground text-base font-sans">{role.title}</h4>
-                    <span className="text-[10px] font-semibold font-sans uppercase px-2 py-0.5 rounded bg-white/5 border border-white/5 text-muted-foreground">
-                      {role.type}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-muted-foreground font-sans">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-muted-foreground" /> {role.location}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-muted-foreground" /> {role.experience}
-                    </span>
-                  </div>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon-sm"
-                  className={`rounded-full group-hover:translate-x-1 transition-transform
-                    ${role.glowColor === "primary" ? "text-primary" : ""}
-                    ${role.glowColor === "secondary" ? "text-secondary" : ""}
-                    ${role.glowColor === "accent" ? "text-accent" : ""}
-                  `}
+        {/* Left Side: Career Listings */}
+        <div className="lg:col-span-5 flex flex-col justify-between h-full">
+          <div className="flex-grow flex flex-col justify-between h-full">
+            <h3 className="typography-h3 text-foreground mb-4 text-left">Current Openings</h3>
+            <div className="flex-grow flex flex-col justify-between gap-4">
+              {roles.map((role) => (
+                <CardPremium
+                  key={role.id}
+                  variant="glass-premium"
+                  glowColor={role.glowColor}
+                  hoverEffect="lift"
+                  className="p-5 flex items-center justify-between gap-4 cursor-pointer"
+                  onClick={() => handleSelectRole(role.id)}
                 >
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </CardPremium>
-            ))}
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-bold text-foreground text-base font-sans">{role.title}</h4>
+                      <span className="text-[10px] font-semibold font-sans uppercase px-2 py-0.5 rounded bg-white/5 border border-white/5 text-muted-foreground">
+                        {role.type}
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-muted-foreground font-sans">
+                      <span className="flex items-center gap-1">
+                        <MapPin className="w-3.5 h-3.5 text-muted-foreground" /> {role.location}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5 text-muted-foreground" /> {role.experience}
+                      </span>
+                    </div>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    className={`rounded-full group-hover:translate-x-1 transition-transform
+                      ${role.glowColor === "primary" ? "text-primary" : ""}
+                      ${role.glowColor === "secondary" ? "text-secondary" : ""}
+                      ${role.glowColor === "accent" ? "text-accent" : ""}
+                    `}
+                  >
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </CardPremium>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Right Side: Form Card */}
-        <div id="careers-form" className="lg:col-span-7 w-full">
+        <div id="careers-form" className="lg:col-span-7 w-full flex flex-col">
           <CardPremium
             variant="glass-premium"
             glowColor={selectedPosition ? (roles.find(r => r.id === selectedPosition)?.glowColor || "accent") : "accent"}
             hoverEffect="none"
-            className="p-6 sm:p-8 relative min-h-[500px]"
+            className="p-6 sm:p-8 relative h-full flex flex-col justify-between"
           >
             <AnimatePresence mode="wait">
               {!successData ? (
@@ -336,9 +325,10 @@ export function Careers() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onSubmit={handleSubmit(onSubmit)}
-                  className="space-y-6"
+                  className="flex flex-col justify-between h-full space-y-4"
                   noValidate
                 >
+                  <div className="space-y-4 flex-grow">
                   <div>
                     <h3 className="text-xl font-bold text-foreground font-heading">Submit Your Application</h3>
                     <p className="text-xs text-muted-foreground mt-1 font-sans">Provide your details and custom portfolio links to apply.</p>
@@ -360,14 +350,14 @@ export function Careers() {
                         id="position"
                         aria-invalid={errors.position ? "true" : "false"}
                         {...register("position", { required: "Please select a target position" })}
-                        className={`w-full rounded-lg bg-black/40 border text-sm text-foreground px-3.5 py-2.5 outline-none transition-all appearance-none cursor-pointer font-sans
+                        className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground px-3.5 py-2.5 outline-none transition-all appearance-none cursor-pointer font-sans
                           ${errors.position ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
                         `}
                       >
-                        <option value="" disabled className="bg-slate-900 text-muted-foreground">Select a position...</option>
+                        <option value="" disabled className="bg-background text-muted-foreground">Select a position...</option>
                         {roles.map((r) => (
-                          <option key={r.id} value={r.id} className="bg-slate-900 text-foreground">
-                            {r.title} ({r.location})
+                          <option key={r.id} value={r.id} className="bg-background text-foreground">
+                            {r.title}
                           </option>
                         ))}
                       </select>
@@ -400,7 +390,7 @@ export function Careers() {
                             required: "Full name is required",
                             minLength: { value: 2, message: "Name must be at least 2 characters" }
                           })}
-                          className={`w-full rounded-lg bg-black/40 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
+                          className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
                             ${errors.fullName ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
                           `}
                         />
@@ -431,7 +421,7 @@ export function Careers() {
                               message: "Please enter a valid email address"
                             }
                           })}
-                          className={`w-full rounded-lg bg-black/40 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
+                          className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
                             ${errors.email ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
                           `}
                         />
@@ -463,7 +453,7 @@ export function Careers() {
                             message: "Please enter a valid phone number (10-15 digits)"
                           }
                         })}
-                        className={`w-full rounded-lg bg-black/40 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
+                        className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
                           ${errors.phone ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
                         `}
                       />
@@ -559,7 +549,7 @@ export function Careers() {
                       {...register("coverLetter", {
                         maxLength: { value: 1000, message: "Cover letter cannot exceed 1000 characters" }
                       })}
-                      className="w-full rounded-lg bg-black/40 border border-border/30 text-sm text-foreground px-3.5 py-2.5 outline-none transition-all focus:border-primary/50 focus:ring-1 focus:ring-primary/50 resize-none font-sans"
+                      className="w-full rounded-lg bg-muted/50 border border-border/30 text-sm text-foreground px-3.5 py-2.5 outline-none transition-all focus:border-primary/50 focus:ring-1 focus:ring-primary/50 resize-none font-sans"
                     />
                     <div className="flex justify-between items-center text-[10px] text-muted-foreground font-sans">
                       <span>Max 1000 characters</span>
@@ -568,6 +558,8 @@ export function Careers() {
                     {errors.coverLetter && (
                       <span className="text-[11px] text-red-400 font-sans block">{errors.coverLetter.message}</span>
                     )}
+                  </div>
+
                   </div>
 
                   {/* Submit Button */}
@@ -619,7 +611,7 @@ export function Careers() {
                   </div>
 
                   {/* Submission Summary Card */}
-                  <div className="w-full max-w-md rounded-xl bg-black/40 border border-border/20 p-5 text-left text-xs space-y-3 font-sans">
+                  <div className="w-full max-w-md rounded-xl bg-muted/30 border border-border/20 p-5 text-left text-xs space-y-3 font-sans">
                     <div className="flex justify-between border-b border-border/10 pb-2">
                       <span className="text-muted-foreground">Target Role:</span>
                       <span className="font-semibold text-foreground">{getPositionLabel(successData.position)}</span>

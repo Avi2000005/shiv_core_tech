@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { constructMetadata } from "@/lib/metadata";
-import { Navbar } from "@/components/ui/navbar";
+import ConditionalNavbar from "@/components/ui/conditional-navbar";
 import "./globals.css";
 
 const inter = Inter({
@@ -21,6 +21,10 @@ export const metadata: Metadata = constructMetadata();
 export const viewport: Viewport = {
   themeColor: "#080d16",
   colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -32,10 +36,27 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${plusJakartaSans.variable} dark`}
-      style={{ colorScheme: "dark" }}
+      suppressHydrationWarning
     >
-      <body className="min-h-screen bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary pt-20">
-        <Navbar />
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.theme === 'light') {
+                  document.documentElement.classList.remove('dark');
+                  document.documentElement.style.colorScheme = 'light';
+                } else {
+                  document.documentElement.classList.add('dark');
+                  document.documentElement.style.colorScheme = 'dark';
+                }
+              } catch (_) {}
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-screen w-full overflow-x-hidden bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary pt-20">
+        <ConditionalNavbar />
         {children}
       </body>
     </html>

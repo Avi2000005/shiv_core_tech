@@ -2,9 +2,38 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { 
+  ArrowRight, 
+  Sparkles,
+  Globe,
+  Smartphone,
+  Laptop,
+  Bot,
+  Cloud,
+  Palette,
+  Database,
+  ShoppingBag,
+  Webhook,
+  ShieldCheck,
+  BarChart3,
+  Brain
+} from "lucide-react";
 import { Button } from "./button";
 import { Container } from "./container";
+const products = [
+  { name: "Website Development", icon: Globe },
+  { name: "Mobile App Development", icon: Smartphone },
+  { name: "Software Development", icon: Laptop },
+  { name: "AI Chatbots Integration", icon: Bot },
+  { name: "Enterprise Cloud Solutions", icon: Cloud },
+  { name: "UI/UX Design Systems", icon: Palette },
+  { name: "Custom ERP Architectures", icon: Database },
+  { name: "E-Commerce Solutions", icon: ShoppingBag },
+  { name: "API Gateway Pipelines", icon: Webhook },
+  { name: "Cybersecurity Audits", icon: ShieldCheck },
+  { name: "Data Analytics Portals", icon: BarChart3 },
+  { name: "Intelligent Agents (RAG)", icon: Brain },
+];
 
 export function Hero() {
   const [shouldAnimate, setShouldAnimate] = React.useState(false);
@@ -71,7 +100,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
       </div>
 
-      <Container size="xl" className="relative z-10 flex flex-col items-center justify-center text-center">
+      <Container size="lg" className="relative z-10 flex flex-col items-center justify-center text-center">
         
         {/* Center Headline and CTAs */}
         <div className="max-w-3xl flex flex-col items-center">
@@ -138,6 +167,44 @@ export function Hero() {
           </motion.div>
         </div>
       </Container>
+
+      {/* Continuous Moving Products Strip */}
+      <div className="absolute bottom-0 left-0 right-0 w-full border-t border-b border-primary/25 dark:border-primary/35 bg-gradient-to-r from-primary/18 via-background/95 to-secondary/18 dark:from-primary/25 dark:via-card/90 dark:to-secondary/25 backdrop-blur-md py-4 select-none overflow-hidden flex items-center">
+        {/* Ambient fade edges */}
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        
+        {/* Moving track */}
+        <motion.div
+          animate={{ x: [0, "-50%"] }}
+          transition={{
+            ease: "linear",
+            duration: 38,
+            repeat: Infinity,
+          }}
+          className="flex w-max whitespace-nowrap gap-0 items-center"
+        >
+          {products.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div key={idx} className="flex items-center gap-3 px-8 text-xs sm:text-sm font-bold tracking-wider text-foreground/90 dark:text-foreground/80 uppercase font-sans shrink-0">
+                <Icon className={`w-5 h-5 shrink-0 ${idx % 2 === 0 ? "text-primary" : "text-secondary"}`} />
+                <span>{item.name}</span>
+              </div>
+            );
+          })}
+          {/* Duplicate for seamless scrolling */}
+          {products.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div key={idx + "-dup"} className="flex items-center gap-3 px-8 text-xs sm:text-sm font-bold tracking-wider text-foreground/90 dark:text-foreground/80 uppercase font-sans shrink-0">
+                <Icon className={`w-5 h-5 shrink-0 ${idx % 2 === 0 ? "text-primary" : "text-secondary"}`} />
+                <span>{item.name}</span>
+              </div>
+            );
+          })}
+        </motion.div>
+      </div>
     </section>
   );
 }

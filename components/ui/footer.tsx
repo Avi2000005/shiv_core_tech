@@ -143,7 +143,7 @@ export function Footer() {
               <GithubIcon className="h-4.5 w-4.5" />
             </a>
             <a 
-              href="https://wa.me/919022143182" 
+              href="https://wa.me/918983564489" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="p-2.5 rounded-lg border border-border/20 glass text-muted-foreground hover:text-emerald-400 hover:border-emerald-400/30 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
@@ -194,8 +194,8 @@ export function Footer() {
           <ul className="space-y-3.5">
             <li className="flex items-start gap-3">
               <Phone className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-              <a href="tel:+919022143182" className="text-sm text-muted-foreground hover:text-foreground transition-colors font-sans font-medium">
-                +91 90221 43182
+              <a href="tel:+918983564489" className="text-sm text-muted-foreground hover:text-foreground transition-colors font-sans font-medium">
+                +91 89835 64489
               </a>
             </li>
             <li className="flex items-start gap-3">

@@ -23,17 +23,17 @@ export function Contact() {
   const contacts: ContactMethod[] = [
     {
       title: "Call Us Direct",
-      value: "+91 90221 43182",
+      value: "+91 8983564489",
       subtext: "Mon-Sat from 9:00 AM to 6:00 PM",
-      href: "tel:+919022143182",
+      href: "tel:+918983564489",
       icon: Phone,
       glowColor: "primary",
     },
     {
       title: "WhatsApp Chat",
-      value: "+91 90221 43182",
+      value: "+91 89835 64489",
       subtext: "Instant support & consultation",
-      href: "https://wa.me/919022143182",
+      href: "https://wa.me/918983564489",
       icon: MessageSquare,
       glowColor: "secondary",
     },
@@ -221,7 +221,7 @@ export function Contact() {
               <div className="flex flex-wrap gap-3 w-full sm:w-auto shrink-0">
                 <Button 
                   variant="glow" 
-                  onClick={() => window.open("https://wa.me/919022143182", "_blank")}
+                  onClick={() => window.open("https://wa.me/918983564489", "_blank")}
                   className="rounded-full gap-2 cursor-pointer text-xs flex-grow sm:flex-grow-0"
                 >
                   <MessageSquare className="h-3.5 w-3.5" />

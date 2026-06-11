@@ -240,8 +240,8 @@ export default function TermsOfServicePage() {
               </div>
               <div className="flex gap-2">
                 <span className="font-semibold text-foreground w-16">Phone:</span>
-                <a href="tel:+919022143182" className="text-primary hover:underline">
-                  +91 90221 43182
+                <a href="tel:+918983564489" className="text-primary hover:underline">
+                  +91 89835 64489
                 </a>
               </div>
               <div className="flex gap-2 items-start">

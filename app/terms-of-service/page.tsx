@@ -247,7 +247,7 @@ export default function TermsOfServicePage() {
               <div className="flex gap-2 items-start">
                 <span className="font-semibold text-foreground w-16 shrink-0">Address:</span>
                 <span className="leading-relaxed">
-                  Plot No 131, Jai Bhavani Nagar, Line no. 12, Tirupati Colony, N4 CIDCO, Chhatrapati Sambhaji Nagar, Maharashtra, India
+                 1st Floor, Auto Cars Compound, Adalat Road, Kranti Chawk, Chhatrapati Sambhaji Nagar, Maharashtra, India
                 </span>
               </div>
             </div>

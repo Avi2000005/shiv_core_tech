@@ -4,8 +4,8 @@ import React from "react";
 import { Container } from "@/components/ui/container";
 
 export const metadata = {
-  title: "Privacy Policy | Shivcore Tech",
-  description: "Privacy Policy for Renvora Technologies Private Limited (Shivcore Tech). Learn how we collect, use, and protect your personal data.",
+  title: "Privacy Policy | Shiv Core Tech",
+  description: "Privacy Policy for Renvora Technologies Private Limited (Shiv Core Tech). Learn how we collect, use, and protect your personal data.",
 };
 
 export default function PrivacyPolicyPage() {
@@ -215,7 +215,7 @@ export default function PrivacyPolicyPage() {
             <p>Email: <a href="mailto:info@shivcoretech.com" className="text-primary hover:underline">info@shivcoretech.com</a></p>
             <p>Website: <a href="https://www.shivcoretech.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">www.shivcoretech.com</a></p>
             <p>
-              Address: Plot No 131, Jai Bhavani Nagar, Line no. 12, Tirupati Colony, N4 CIDCO, Chhatrapati Sambhaji Nagar, Maharashtra, India
+              Address: 1st Floor, Auto Cars Compound, Adalat Road, Kranti Chawk, Chhatrapati Sambhaji Nagar, Maharashtra, India
             </p>
           </div>
           <p className="text-xs text-muted-foreground/60 italic pt-4">

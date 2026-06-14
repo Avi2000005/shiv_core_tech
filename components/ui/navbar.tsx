@@ -44,13 +44,13 @@ export function Navbar() {
   };
 
   const menuItems: NavItem[] = [
-    { label: "Home", href: "#" },
-    { label: "About", href: "#about" },
-    { label: "Expertise", href: "#expertise" },
-    { label: "Portfolio", href: "#portfolio" },
-    { label: "Testimonials", href: "#testimonials" },
-    { label: "Careers", href: "#careers" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: "/" },
+    { label: "About", href: "/#about" },
+    { label: "Expertise", href: "/#expertise" },
+    { label: "Portfolio", href: "/#portfolio" },
+    { label: "Testimonials", href: "/#testimonials" },
+    { label: "Careers", href: "/careers" },
+    { label: "Contact", href: "/#contact" },
   ];
 
   // Scroll listener to toggle solid glassmorphic background
@@ -90,14 +90,14 @@ export function Navbar() {
     >
       <Container size="lg" className="flex items-center justify-between">
         {/* Placeholder Brand Logo Component */}
-        <a href="#" className="flex items-center gap-2 group cursor-pointer select-none" aria-label="Shivcore Tech Home">
+        <a href="/" className="flex items-center gap-2 group cursor-pointer select-none" aria-label="Shiv Core Tech Home">
           <TransparentLogo
             src="/logo.webp"
-            alt="Shivcore Tech Logo"
+            alt="Shiv Core Tech Logo"
             className="h-11 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
           />
           <span className="font-heading text-xl font-bold tracking-wider bg-gradient-to-r from-[#0284C7] to-[#EA580C] dark:from-[#00C0FF] dark:to-[#FF7A00] bg-clip-text text-transparent transition-all duration-300 group-hover:opacity-90">
-            SHIVCORE TECH
+            SHIV CORE TECH
           </span>
         </a>
 

@@ -66,21 +66,21 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export function Footer() {
   const quickLinks: FooterLink[] = [
-    { label: "Home", href: "#" },
-    { label: "About Us", href: "#about" },
-    { label: "Our Expertise", href: "#expertise" },
-    { label: "Testimonials", href: "#testimonials" },
-    { label: "Careers", href: "#careers" },
-    { label: "Contact Us", href: "#contact" },
+    { label: "Home", href: "/" },
+    { label: "About Us", href: "/#about" },
+    { label: "Our Expertise", href: "/#expertise" },
+    { label: "Testimonials", href: "/#testimonials" },
+    { label: "Careers", href: "/careers" },
+    { label: "Contact Us", href: "/#contact" },
   ];
 
   const servicesLinks: FooterLink[] = [
-    { label: "Website Development", href: "#expertise" },
-    { label: "Mobile App Development", href: "#expertise" },
-    { label: "Software Development", href: "#expertise" },
-    { label: "AI Chatbots", href: "#expertise" },
-    { label: "Design Services", href: "#expertise" },
-    { label: "Digital Marketing", href: "#expertise" },
+    { label: "Website Development", href: "/#expertise" },
+    { label: "Mobile App Development", href: "/#expertise" },
+    { label: "Software Development", href: "/#expertise" },
+    { label: "AI Chatbots", href: "/#expertise" },
+    { label: "Design Services", href: "/#expertise" },
+    { label: "Digital Marketing", href: "/#expertise" },
   ];
 
   return (
@@ -92,15 +92,15 @@ export function Footer() {
         
         {/* Brand Information Column */}
         <div className="lg:col-span-4 space-y-6">
-          <a href="#" className="flex items-center gap-2 group cursor-pointer select-none">
+          <a href="/" className="flex items-center gap-2 group cursor-pointer select-none">
             <TransparentLogo 
               src="/logo.webp" 
-              alt="Shivcore Tech Logo" 
+              alt="Shiv Core Tech Logo" 
               className="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300" 
               forceTheme="dark"
             />
             <span className="font-heading text-lg font-bold tracking-wider bg-gradient-to-r from-[#00C0FF] to-[#FF7A00] bg-clip-text text-transparent transition-all duration-300 group-hover:opacity-90">
-              SHIVCORE TECH
+              SHIV CORE TECH
             </span>
           </a>
           
@@ -207,7 +207,7 @@ export function Footer() {
             <li className="flex items-start gap-3">
               <MapPin className="h-4 w-4 text-accent shrink-0 mt-0.5" />
               <span className="text-sm text-muted-foreground font-sans leading-relaxed">
-                Plot No 131, Jai Bhavani Nagar, Line no. 12, Tirupati Colony, N4 CIDCO, Chhatrapati Sambhaji Nagar, Maharashtra, India
+               1st Floor, Auto Cars Compound, Adalat Road, Kranti Chawk, Chhatrapati Sambhaji Nagar, Maharashtra, India
               </span>
             </li>
           </ul>

@@ -21,7 +21,7 @@ export function Testimonials() {
       name: "Omprakash",
       role: "Founder & Owner",
       company: "Santparampara.com",
-      quote: "Shivcore Tech understood our requirements clearly and delivered the website on time. The team was professional, responsive, and ensured the final product reflected our vision perfectly",
+      quote: "Shiv Core Tech understood our requirements clearly and delivered the website on time. The team was professional, responsive, and ensured the final product reflected our vision perfectly",
       rating: 5,
       glowColor: "primary",
     },

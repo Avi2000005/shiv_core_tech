@@ -46,7 +46,7 @@ export function About() {
               transition={{ delay: 0.2 }}
               className="text-muted-foreground font-sans leading-relaxed text-base"
             >
-              Shivcore Tech empowers startups, businesses, and local enterprises in emerging markets to embrace digital transformation. 
+              Shiv Core Tech empowers startups, businesses, and local enterprises in emerging markets to embrace digital transformation. 
               We simplify technology adoption by delivering affordable, scalable, and innovative digital solutions.
             </motion.p>
           </div>
@@ -84,7 +84,7 @@ export function About() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/teamwork.webp" 
-              alt="Shivcore Tech Team Collaboration" 
+              alt="Shiv Core Tech Team Collaboration" 
               className="w-full aspect-[16/9] object-cover transition-transform duration-500 hover:scale-105"
             />
             <div className="p-6 text-left flex-grow flex flex-col justify-between">

@@ -183,13 +183,25 @@ export function Careers() {
         formData.append("resume", data.resume);
       }
 
-      const response = await fetch("/api/apply", {
-        method: "POST",
-        body: formData,
-      });
+      let response;
+      try {
+        response = await fetch("/send_email.php", {
+          method: "POST",
+          body: formData,
+        });
+      } catch (fetchErr) {
+        // Fallback for local development environment (without PHP runner)
+        if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+          var mockResponse = new Response(JSON.stringify({ success: true }));
+          response = mockResponse;
+          console.warn("send_email.php is not running locally. Simulating successful form submission.");
+        } else {
+          throw fetchErr;
+        }
+      }
 
       const resData = await response.json();
-      if (!response.ok) {
+      if (!response.ok || !resData.success) {
         throw new Error(resData.error || "Failed to submit application");
       }
 
@@ -255,7 +267,7 @@ export function Careers() {
           transition={{ delay: 0.2 }}
           className="mt-4 max-w-xl text-muted-foreground font-sans leading-relaxed text-base"
         >
-          At Shivcore Tech, we translate complex legacy challenges into streamlined digital architecture. 
+          At Shiv Core Tech, we translate complex legacy challenges into streamlined digital architecture. 
           We value clean execution, high reliability, and deep technical ownership.
         </motion.p>
       </div>
@@ -543,7 +555,7 @@ export function Careers() {
                     </label>
                     <textarea
                       id="coverLetter"
-                      placeholder="Briefly introduce yourself, your experience, and why you are excited to join Shivcore Tech..."
+                      placeholder="Briefly introduce yourself, your experience, and why you are excited to join Shiv Core Tech..."
                       rows={4}
                       aria-invalid={errors.coverLetter ? "true" : "false"}
                       {...register("coverLetter", {
@@ -605,8 +617,8 @@ export function Careers() {
                   <div className="space-y-2">
                     <h3 className="text-2xl font-bold text-foreground font-heading">Application Submitted!</h3>
                     <p className="text-sm text-muted-foreground font-sans max-w-sm">
-                      Thank you for applying, <span className="text-foreground font-semibold">{successData.fullName}</span>.
-                      Our HR team has received your application for the <span className="text-primary font-semibold">{getPositionLabel(successData.position)}</span> role.
+                      Thank you for applying, <span className="text-foreground font-semibold">{successData.fullName}</span>. 
+                      Our HR team has received your application for the <span className="text-primary font-semibold">{getPositionLabel(successData.position)}</span> role and will review your resume shortly.
                     </p>
                   </div>
 

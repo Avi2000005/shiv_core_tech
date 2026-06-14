@@ -7,7 +7,6 @@ import { Expertise } from "@/components/ui/expertise";
 import { TechShowcase } from "@/components/ui/tech-showcase";
 import { Portfolio } from "@/components/ui/portfolio";
 import { Testimonials } from "@/components/ui/testimonials";
-import { Careers } from "@/components/ui/careers";
 import { Contact } from "@/components/ui/contact";
 import { Footer } from "@/components/ui/footer";
 
@@ -35,9 +34,6 @@ export default function Home() {
 
       {/* Premium Testimonials Section */}
       <Testimonials />
-
-      {/* Premium Careers Section */}
-      <Careers />
 
       {/* Premium Contact Section */}
       <Contact />

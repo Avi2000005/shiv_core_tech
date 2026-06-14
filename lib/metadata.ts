@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export function constructMetadata({
-  title = "ShivCore Technologies | Enterprise IT Solutions & Consulting",
-  description = "ShivCore Technologies delivers premium enterprise IT solutions, custom software engineering, cloud architecture, and cybersecurity services to power digital acceleration.",
+  title = "Shiv Core Tech | Enterprise IT Solutions & Consulting",
+  description = "Shiv Core Tech delivers premium enterprise IT solutions, custom software engineering, cloud architecture, and cybersecurity services to power digital acceleration.",
   image = "/og-image.png",
   icons = "/favicon.ico",
   noIndex = false,
@@ -16,7 +16,7 @@ export function constructMetadata({
   return {
     title: {
       default: title,
-      template: `%s | ShivCore Technologies`,
+      template: `%s | Shiv Core Tech`,
     },
     description,
     keywords: [
@@ -31,24 +31,24 @@ export function constructMetadata({
     ],
     authors: [
       {
-        name: "ShivCore Technologies",
+        name: "Shiv Core Tech",
         url: "https://shivcore.tech",
       },
     ],
-    creator: "ShivCore Technologies",
+    creator: "Shiv Core Tech",
     openGraph: {
       type: "website",
       locale: "en_US",
       url: "https://shivcore.tech",
       title,
       description,
-      siteName: "ShivCore Technologies",
+      siteName: "Shiv Core Tech",
       images: [
         {
           url: image,
           width: 1200,
           height: 630,
-          alt: "ShivCore Technologies - Premium Enterprise IT Solutions",
+          alt: "Shiv Core Tech - Premium Enterprise IT Solutions",
         },
       ],
     },

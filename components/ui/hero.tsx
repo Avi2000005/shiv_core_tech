@@ -30,7 +30,6 @@ const products = [
   { name: "Custom ERP Architectures", icon: Database },
   { name: "E-Commerce Solutions", icon: ShoppingBag },
   { name: "API Gateway Pipelines", icon: Webhook },
-  { name: "Cybersecurity Audits", icon: ShieldCheck },
   { name: "Data Analytics Portals", icon: BarChart3 },
   { name: "Intelligent Agents (RAG)", icon: Brain },
 ];
@@ -136,7 +135,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-6 max-w-xl text-lg text-muted-foreground font-sans leading-relaxed"
           >
-            Shivcore Tech designs and delivers world-class custom cloud architectures, secure software engineering, 
+            Shiv Core Tech designs and delivers world-class custom cloud architectures, secure software engineering, 
             and intelligent IT consulting services to accelerate enterprise digital transformation.
           </motion.p>
           

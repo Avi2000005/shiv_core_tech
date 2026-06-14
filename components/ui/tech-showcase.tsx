@@ -5,7 +5,7 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import { 
   Code, Layers, Database, Cloud, Sparkles, Palette,
   Zap, Server, Cpu, Terminal, CreditCard, Globe,
-  Package, Shield, GitBranch, Brain
+  Package, Shield, GitBranch, Brain, ChevronDown, ChevronUp
 } from "lucide-react";
 import { CardPremium } from "./card-premium";
 import { Section } from "./section";
@@ -21,6 +21,7 @@ interface TechItem {
 
 export function TechShowcase() {
   const [activeTab, setActiveTab] = useState<string>("all");
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const categories = [
     { id: "all", label: "All Tech" },
@@ -89,6 +90,8 @@ export function TechShowcase() {
     return tech.category === activeTab;
   });
 
+  const visibleTech = isExpanded ? filteredTech : filteredTech.slice(0, 10);
+
   const gridVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
@@ -145,7 +148,10 @@ export function TechShowcase() {
         {categories.map((cat) => (
           <button
             key={cat.id}
-            onClick={() => setActiveTab(cat.id)}
+            onClick={() => {
+              setActiveTab(cat.id);
+              setIsExpanded(false);
+            }}
             className={`px-4 py-2 text-xs font-semibold rounded-full border transition-all duration-300 cursor-pointer font-sans
               ${activeTab === cat.id 
                 ? "bg-primary border-primary text-primary-foreground shadow-md shadow-primary/20" 
@@ -166,7 +172,7 @@ export function TechShowcase() {
         className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
       >
         <AnimatePresence mode="popLayout">
-          {filteredTech.map((tech) => {
+          {visibleTech.map((tech) => {
             const Icon = tech.icon;
             
             return (
@@ -216,6 +222,22 @@ export function TechShowcase() {
           })}
         </AnimatePresence>
       </motion.div>
+
+      {filteredTech.length > 10 && (
+        <div className="flex justify-center mt-12">
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border border-primary/20 bg-primary/5 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-md shadow-primary/5 cursor-pointer font-sans"
+          >
+            <span>{isExpanded ? "Show Less" : "Show More"}</span>
+            {isExpanded ? (
+              <ChevronUp className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
+            ) : (
+              <ChevronDown className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />
+            )}
+          </button>
+        </div>
+      )}
     </Section>
   );
 }

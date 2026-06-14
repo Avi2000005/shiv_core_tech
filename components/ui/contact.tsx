@@ -2,9 +2,10 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
 import { 
   Phone, Mail, MapPin, MessageSquare, 
-  ArrowRight, Sparkles, Send
+  ArrowRight, Sparkles, Send, User, ChevronDown
 } from "lucide-react";
 import { CardPremium } from "./card-premium";
 import { Section } from "./section";
@@ -19,7 +20,41 @@ interface ContactMethod {
   glowColor: "primary" | "secondary" | "accent";
 }
 
+interface EnquiryFormValues {
+  fullName: string;
+  email: string;
+  service: string;
+  message: string;
+}
+
 export function Contact() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<EnquiryFormValues>({
+    defaultValues: {
+      fullName: "",
+      email: "",
+      service: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = (data: EnquiryFormValues) => {
+    const messageText = `*New Enquiry from Shiv Core Tech*
+----------------------------------
+*Name:* ${data.fullName}
+*Email:* ${data.email}
+*Service:* ${data.service}
+*Message:* ${data.message}`;
+
+    const whatsappUrl = `https://wa.me/918983564489?text=${encodeURIComponent(messageText)}`;
+    window.open(whatsappUrl, "_blank");
+    reset();
+  };
+
   const contacts: ContactMethod[] = [
     {
       title: "Call Us Direct",
@@ -157,10 +192,10 @@ export function Contact() {
                   <h4 className="font-bold text-foreground text-sm font-sans uppercase tracking-wider">Office Headquarters</h4>
                 </div>
                 <p className="text-sm text-muted-foreground font-sans leading-relaxed">
-                  Plot No 131, Jai Bhavani Nagar,<br />
-                  Line No 12, Tirupati Colony,<br />
-                  N4 CIDCO, Chhatrapati Sambhaji Nagar,<br />
-                  Maharashtra, India
+                   1st Floor, Auto Cars Compound,<br />
+                   Adalat Road, Kranti Chawk,<br />
+                   Chhatrapati Sambhaji Nagar,<br />
+                   Maharashtra, India
                 </p>
               </div>
 
@@ -179,68 +214,177 @@ export function Contact() {
           </motion.div>
         </div>
 
-        {/* Right Side: Map Iframe & Quick CTA block */}
-        <div className="lg:col-span-7 flex flex-col justify-between gap-6">
-          {/* Map Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="w-full flex-grow min-h-[300px] lg:min-h-[350px] relative rounded-2xl overflow-hidden border border-border/20 shadow-2xl"
+        {/* Right Side: Whatsapp Enquiry Form */}
+        <div className="lg:col-span-7 w-full flex flex-col">
+          <CardPremium
+            variant="glass-premium"
+            glowColor="secondary"
+            hoverEffect="none"
+            className="p-6 sm:p-8 relative h-full flex flex-col justify-between"
           >
-            {/* Custom overlay/filter to give Google Maps a dark/futuristic look */}
-            <div className="absolute inset-0 w-full h-full bg-slate-950/10 pointer-events-none z-10" />
-            <iframe
-              src="https://maps.google.com/maps?q=Plot%20No%20131,%20Jai%20Bhavani%20Nagar,%20Line%20No%2012,%20Tirupati%20Colony,%20N4%20CIDCO,%20Chhatrapati%20Sambhaji%20Nagar&t=&z=15&ie=UTF8&iwloc=&output=embed"
-              className="absolute inset-0 w-full h-full border-0 [filter:invert(90%)_hue-rotate(180deg)_grayscale(85%)_contrast(110%)_opacity(80%)] pointer-events-auto"
-              allowFullScreen={false}
-              loading="lazy"
-              title="Office Location Map"
-            />
-          </motion.div>
-
-          {/* Quick CTA Box */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <CardPremium
-              variant="glass-premium"
-              glowColor="primary"
-              hoverEffect="none"
-              className="p-6 bg-gradient-to-r from-primary/5 via-secondary/5 to-transparent border-primary/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col justify-between h-full space-y-4"
+              noValidate
             >
-              <div className="space-y-1">
-                <h4 className="font-bold text-foreground text-base font-sans">Have a project in mind?</h4>
-                <p className="text-xs text-muted-foreground font-sans">Let&#39;s build reliable software systems for your business.</p>
+              <div className="space-y-4 flex-grow">
+                <div>
+                  <h3 className="text-xl font-bold text-foreground font-heading">Send an Enquiry</h3>
+                  <p className="text-xs text-muted-foreground mt-1 font-sans">
+                    Fill in details below to connect with us directly on WhatsApp.
+                  </p>
+                </div>
+
+                {/* Field: Full Name */}
+                <div className="space-y-2">
+                  <label htmlFor="fullName" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute inset-y-0 left-3.5 flex items-center text-muted-foreground">
+                      <User className="h-4 w-4" />
+                    </span>
+                    <input
+                      id="fullName"
+                      type="text"
+                      aria-invalid={errors.fullName ? "true" : "false"}
+                      placeholder="Your Name"
+                      {...register("fullName", {
+                        required: "Full name is required",
+                        minLength: { value: 2, message: "Name must be at least 2 characters" }
+                      })}
+                      className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
+                        ${errors.fullName ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
+                      `}
+                    />
+                  </div>
+                  {errors.fullName && (
+                    <span className="text-[11px] text-red-400 font-sans block">{errors.fullName.message}</span>
+                  )}
+                </div>
+
+                {/* Field: Email */}
+                <div className="space-y-2">
+                  <label htmlFor="email" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
+                    Email Address <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute inset-y-0 left-3.5 flex items-center text-muted-foreground">
+                      <Mail className="h-4 w-4" />
+                    </span>
+                    <input
+                      id="email"
+                      type="email"
+                      aria-invalid={errors.email ? "true" : "false"}
+                      placeholder="your.email@example.com"
+                      {...register("email", {
+                        required: "Email is required",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "Please enter a valid email address"
+                        }
+                      })}
+                      className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
+                        ${errors.email ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
+                      `}
+                    />
+                  </div>
+                  {errors.email && (
+                    <span className="text-[11px] text-red-400 font-sans block">{errors.email.message}</span>
+                  )}
+                </div>
+
+                {/* Field: Service Required */}
+                <div className="space-y-2">
+                  <label htmlFor="service" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
+                    Service Required <span className="text-red-500">*</span>
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="service"
+                      aria-invalid={errors.service ? "true" : "false"}
+                      {...register("service", { required: "Please select a service" })}
+                      className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground px-3.5 py-2.5 outline-none transition-all appearance-none cursor-pointer font-sans
+                        ${errors.service ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
+                      `}
+                    >
+                      <option value="" disabled className="bg-background text-muted-foreground">Select a service...</option>
+                      <option value="Website Development" className="bg-background text-foreground">Website Development</option>
+                      <option value="Mobile App Development" className="bg-background text-foreground">Mobile App Development</option>
+                      <option value="Software Development" className="bg-background text-foreground">Software Development</option>
+                      <option value="AI Chatbots" className="bg-background text-foreground">AI Chatbots</option>
+                      <option value="Design Services" className="bg-background text-foreground">Design Services</option>
+                      <option value="Digital Marketing" className="bg-background text-foreground">Digital Marketing</option>
+                      <option value="Other / General Inquiry" className="bg-background text-foreground">Other / General Inquiry</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-3.5 flex items-center text-muted-foreground">
+                      <ChevronDown className="h-4 w-4" />
+                    </div>
+                  </div>
+                  {errors.service && (
+                    <span className="text-[11px] text-red-400 font-sans block">{errors.service.message}</span>
+                  )}
+                </div>
+
+                {/* Field: Message */}
+                <div className="space-y-2">
+                  <label htmlFor="message" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
+                    Message <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    placeholder="Briefly describe your project requirements, goals, or timeline..."
+                    rows={4}
+                    aria-invalid={errors.message ? "true" : "false"}
+                    {...register("message", {
+                      required: "Message is required",
+                      minLength: { value: 10, message: "Message must be at least 10 characters" },
+                      maxLength: { value: 1000, message: "Message cannot exceed 1000 characters" }
+                    })}
+                    className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground px-3.5 py-2.5 outline-none transition-all resize-none font-sans
+                      ${errors.message ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
+                    `}
+                  />
+                  {errors.message && (
+                    <span className="text-[11px] text-red-400 font-sans block">{errors.message.message}</span>
+                  )}
+                </div>
               </div>
-              
-              <div className="flex flex-wrap gap-3 w-full sm:w-auto shrink-0">
-                <Button 
-                  variant="glow" 
-                  onClick={() => window.open("https://wa.me/918983564489", "_blank")}
-                  className="rounded-full gap-2 cursor-pointer text-xs flex-grow sm:flex-grow-0"
+
+              {/* Submit Button */}
+              <div className="pt-2">
+                <Button
+                  variant="glow"
+                  type="submit"
+                  className="w-full h-11 justify-center rounded-lg gap-2 cursor-pointer font-semibold text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] border-emerald-500"
                 >
-                  <MessageSquare className="h-3.5 w-3.5" />
-                  <span>WhatsApp Chat</span>
-                </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={() => window.location.href = "mailto:info@shivcoretech.com"}
-                  className="rounded-full gap-2 cursor-pointer text-xs flex-grow sm:flex-grow-0 hover:border-primary/50 hover:bg-primary/5"
-                >
-                  <Send className="h-3.5 w-3.5 text-primary" />
-                  <span>Send Email</span>
+                  <MessageSquare className="h-4 w-4" />
+                  <span>Send Enquiry to WhatsApp</span>
                 </Button>
               </div>
-            </CardPremium>
-          </motion.div>
+            </form>
+          </CardPremium>
         </div>
 
       </div>
+
+      {/* Map Card at the bottom */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.1 }}
+        className="w-full h-[300px] lg:h-[350px] relative rounded-2xl overflow-hidden border border-border/20 shadow-2xl mt-12"
+      >
+        <div className="absolute inset-0 w-full h-full bg-slate-950/10 pointer-events-none z-10" />
+        <iframe
+          src="https://maps.google.com/maps?q=Plot%20No%20131,%20Jai%20Bhavani%20Nagar,%20Line%20No%2012,%20Tirupati%20Colony,%20N4%20CIDCO,%20Chhatrapati%20Sambhaji%20Nagar&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          className="absolute inset-0 w-full h-full border-0 [filter:invert(90%)_hue-rotate(180deg)_grayscale(85%)_contrast(110%)_opacity(80%)] pointer-events-auto"
+          allowFullScreen={false}
+          loading="lazy"
+          title="Office Location Map"
+        />
+      </motion.div>
     </Section>
   );
 }

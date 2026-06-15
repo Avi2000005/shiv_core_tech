@@ -43,6 +43,17 @@ export function Navbar() {
     }
   };
 
+  const handleGetInTouch = (closeMobileMenu = false) => {
+    if (closeMobileMenu) {
+      setIsMobileOpen(false);
+    }
+    if (window.location.pathname === "/") {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.href = "/#contact";
+    }
+  };
+
   const menuItems: NavItem[] = [
     { label: "Home", href: "/" },
     { label: "About", href: "/#about" },
@@ -138,7 +149,7 @@ export function Navbar() {
               variant="glow"
               size="default"
               className="group gap-2 cursor-pointer rounded-full"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => handleGetInTouch()}
             >
               Get in Touch
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
@@ -202,10 +213,7 @@ export function Navbar() {
                 variant="glow"
                 size="lg"
                 className="w-full justify-center group gap-2 rounded-full cursor-pointer"
-                onClick={() => {
-                  setIsMobileOpen(false);
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
+                onClick={() => handleGetInTouch(true)}
               >
                 Get in Touch
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

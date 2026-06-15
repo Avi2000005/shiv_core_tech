@@ -196,9 +196,9 @@ export default function TermsOfServicePage() {
           <h1 className="typography-h1 font-heading text-foreground">Terms of Service</h1>
           <p className="text-base text-muted-foreground">Renvora Technologies Private Limited</p>
           <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground font-mono">
-            <span>Effective Date: June 10, 2025</span>
+            <span>Effective Date: June 10, 2026</span>
             <span>•</span>
-            <span>Last Updated: June 10, 2025</span>
+            <span>Last Updated: June 10, 2026</span>
           </div>
         </div>
 

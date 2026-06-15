@@ -178,31 +178,20 @@ export function Careers() {
       formData.append("fullName", data.fullName);
       formData.append("email", data.email);
       formData.append("phone", data.phone);
-      formData.append("coverLetter", data.coverLetter);
+      formData.append("coverLetter", data.coverLetter || "");
       if (data.resume) {
         formData.append("resume", data.resume);
       }
 
-      let response;
-      try {
-        response = await fetch("/send_email.php", {
-          method: "POST",
-          body: formData,
-        });
-      } catch (fetchErr) {
-        // Fallback for local development environment (without PHP runner)
-        if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-          var mockResponse = new Response(JSON.stringify({ success: true }));
-          response = mockResponse;
-          console.warn("send_email.php is not running locally. Simulating successful form submission.");
-        } else {
-          throw fetchErr;
-        }
-      }
+      const response = await fetch("/api/apply", {
+        method: "POST",
+        body: formData,
+      });
 
-      const resData = await response.json();
-      if (!response.ok || !resData.success) {
-        throw new Error(resData.error || "Failed to submit application");
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to submit application. Please try again.");
       }
 
       setSuccessData(data);
@@ -617,8 +606,8 @@ export function Careers() {
                   <div className="space-y-2">
                     <h3 className="text-2xl font-bold text-foreground font-heading">Application Submitted!</h3>
                     <p className="text-sm text-muted-foreground font-sans max-w-sm">
-                      Thank you for applying, <span className="text-foreground font-semibold">{successData.fullName}</span>. 
-                      Our HR team has received your application for the <span className="text-primary font-semibold">{getPositionLabel(successData.position)}</span> role and will review your resume shortly.
+                      Thank you, <span className="text-foreground font-semibold">{successData.fullName}</span>. 
+                      Your application for the <span className="text-primary font-semibold">{getPositionLabel(successData.position)}</span> role has been submitted successfully, and our team has been notified.
                     </p>
                   </div>
 

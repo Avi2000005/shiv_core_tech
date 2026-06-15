@@ -19,6 +19,8 @@ interface CareerFormValues {
   phone: string;
   resume: File | null;
   coverLetter: string;
+  currentSalary?: string;
+  expectedSalary?: string;
 }
 
 interface JobRole {
@@ -89,6 +91,8 @@ export function Careers() {
       phone: "",
       resume: null,
       coverLetter: "",
+      currentSalary: "",
+      expectedSalary: "",
     },
   });
 
@@ -179,6 +183,12 @@ export function Careers() {
       formData.append("email", data.email);
       formData.append("phone", data.phone);
       formData.append("coverLetter", data.coverLetter || "");
+      if (data.currentSalary) {
+        formData.append("currentSalary", data.currentSalary);
+      }
+      if (data.expectedSalary) {
+        formData.append("expectedSalary", data.expectedSalary);
+      }
       if (data.resume) {
         formData.append("resume", data.resume);
       }
@@ -464,6 +474,64 @@ export function Careers() {
                     )}
                   </div>
 
+                  {/* Fields: Current & Expected Salary (Conditional) */}
+                  {selectedPosition && selectedPosition !== "intern" && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1"
+                    >
+                      {/* Field: Current Salary */}
+                      <div className="space-y-2">
+                        <label htmlFor="currentSalary" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
+                          Current Salary <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            id="currentSalary"
+                            type="text"
+                            aria-invalid={errors.currentSalary ? "true" : "false"}
+                            placeholder="e.g. 5 LPA"
+                            {...register("currentSalary", {
+                              required: selectedPosition !== "intern" ? "Current salary is required" : false
+                            })}
+                            className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground px-3.5 py-2.5 outline-none transition-all font-sans
+                              ${errors.currentSalary ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
+                            `}
+                          />
+                        </div>
+                        {errors.currentSalary && (
+                          <span className="text-[11px] text-red-400 font-sans block">{errors.currentSalary.message}</span>
+                        )}
+                      </div>
+
+                      {/* Field: Expected Salary */}
+                      <div className="space-y-2">
+                        <label htmlFor="expectedSalary" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
+                          Expected Salary <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative">
+                          <input
+                            id="expectedSalary"
+                            type="text"
+                            aria-invalid={errors.expectedSalary ? "true" : "false"}
+                            placeholder="e.g. 8 LPA"
+                            {...register("expectedSalary", {
+                              required: selectedPosition !== "intern" ? "Expected salary is required" : false
+                            })}
+                            className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground px-3.5 py-2.5 outline-none transition-all font-sans
+                              ${errors.expectedSalary ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
+                            `}
+                          />
+                        </div>
+                        {errors.expectedSalary && (
+                          <span className="text-[11px] text-red-400 font-sans block">{errors.expectedSalary.message}</span>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+
                   {/* Field: Resume Upload (Custom Premium Dropzone) */}
                   <div className="space-y-2">
                     <label htmlFor="resume-upload" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
@@ -625,6 +693,18 @@ export function Careers() {
                       <span className="text-muted-foreground">Candidate Phone:</span>
                       <span className="font-semibold text-foreground">{successData.phone}</span>
                     </div>
+                    {successData.currentSalary && (
+                      <div className="flex justify-between border-b border-border/10 pb-2">
+                        <span className="text-muted-foreground">Current Salary:</span>
+                        <span className="font-semibold text-foreground">{successData.currentSalary}</span>
+                      </div>
+                    )}
+                    {successData.expectedSalary && (
+                      <div className="flex justify-between border-b border-border/10 pb-2">
+                        <span className="text-muted-foreground">Expected Salary:</span>
+                        <span className="font-semibold text-foreground">{successData.expectedSalary}</span>
+                      </div>
+                    )}
                     {successData.resume && (
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Resume File:</span>

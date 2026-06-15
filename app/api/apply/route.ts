@@ -10,6 +10,8 @@ export async function POST(req: NextRequest) {
     const phone = formData.get("phone") as string;
     const coverLetter = formData.get("coverLetter") as string;
     const resume = formData.get("resume") as File | null;
+    const currentSalary = formData.get("currentSalary") as string | null;
+    const expectedSalary = formData.get("expectedSalary") as string | null;
 
     // Validate required fields
     if (!fullName || !email || !phone || !position) {
@@ -31,12 +33,14 @@ export async function POST(req: NextRequest) {
       console.warn("--------------------------------------------------");
       console.warn("⚠️ SMTP Credentials are not fully configured in environment variables.");
       console.warn("Logging Careers Application Form Submission details:");
-      console.warn(`Position:     ${position}`);
-      console.warn(`Full Name:    ${fullName}`);
-      console.warn(`Email:        ${email}`);
-      console.warn(`Phone:        ${phone}`);
-      console.warn(`Cover Letter: ${coverLetter || "None"}`);
-      console.warn(`Resume File:  ${resume ? `${resume.name} (${resume.size} bytes)` : "None"}`);
+      console.warn(`Position:        ${position}`);
+      console.warn(`Full Name:       ${fullName}`);
+      console.warn(`Email:           ${email}`);
+      console.warn(`Phone:           ${phone}`);
+      console.warn(`Current Salary:  ${currentSalary || "N/A"}`);
+      console.warn(`Expected Salary: ${expectedSalary || "N/A"}`);
+      console.warn(`Cover Letter:    ${coverLetter || "None"}`);
+      console.warn(`Resume File:     ${resume ? `${resume.name} (${resume.size} bytes)` : "None"}`);
       console.warn("--------------------------------------------------");
 
       return NextResponse.json({
@@ -101,6 +105,18 @@ export async function POST(req: NextRequest) {
                 <td style="padding: 10px 0; color: #94a3b8; font-weight: 500;">Phone Number:</td>
                 <td style="padding: 10px 0; color: #f8fafc;">${phone}</td>
               </tr>
+              ${currentSalary ? `
+              <tr style="border-bottom: 1px solid #1e293b;">
+                <td style="padding: 10px 0; color: #94a3b8; font-weight: 500;">Current Salary:</td>
+                <td style="padding: 10px 0; color: #f8fafc; font-weight: 600;">${currentSalary}</td>
+              </tr>
+              ` : ''}
+              ${expectedSalary ? `
+              <tr style="border-bottom: 1px solid #1e293b;">
+                <td style="padding: 10px 0; color: #94a3b8; font-weight: 500;">Expected Salary:</td>
+                <td style="padding: 10px 0; color: #f8fafc; font-weight: 600;">${expectedSalary}</td>
+              </tr>
+              ` : ''}
               <tr>
                 <td style="padding: 10px 0; color: #94a3b8; font-weight: 500;">Resume Attached:</td>
                 <td style="padding: 10px 0; color: ${resume ? "#10b981" : "#ef4444"}; font-weight: 600;">

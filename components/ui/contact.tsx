@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { 
   Phone, Mail, MapPin, MessageSquare, 
-  ArrowRight, Sparkles, Send, User, ChevronDown
+  ArrowRight, Sparkles, Send, User, ChevronDown, CheckCircle
 } from "lucide-react";
 import { CardPremium } from "./card-premium";
 import { Section } from "./section";
@@ -28,11 +28,15 @@ interface EnquiryFormValues {
 }
 
 export function Contact() {
+  const [successData, setSuccessData] = useState<EnquiryFormValues | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitMethod, setSubmitMethod] = useState<'whatsapp' | 'email' | null>(null);
+
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<EnquiryFormValues>({
     defaultValues: {
       fullName: "",
@@ -42,17 +46,57 @@ export function Contact() {
     },
   });
 
-  const onSubmit = (data: EnquiryFormValues) => {
-    const messageText = `*New Enquiry from Shiv Core Tech*
+  const onSubmit = async (data: EnquiryFormValues) => {
+    setSubmitError(null);
+    if (submitMethod === 'whatsapp') {
+      try {
+        const messageText = `*New Enquiry from Shiv Core Tech*
 ----------------------------------
 *Name:* ${data.fullName}
 *Email:* ${data.email}
 *Service:* ${data.service}
 *Message:* ${data.message}`;
 
-    const whatsappUrl = `https://wa.me/918983564489?text=${encodeURIComponent(messageText)}`;
-    window.open(whatsappUrl, "_blank");
+        const whatsappUrl = `https://wa.me/918983564489?text=${encodeURIComponent(messageText)}`;
+        window.open(whatsappUrl, "_blank");
+        reset();
+      } catch (err: any) {
+        setSubmitError("Failed to redirect to WhatsApp. Please try again.");
+      }
+    } else if (submitMethod === 'email') {
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fullName: data.fullName,
+            email: data.email,
+            phone: "",
+            service: data.service,
+            message: data.message,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || "Failed to send inquiry email. Please try again.");
+        }
+
+        setSuccessData(data);
+      } catch (err: any) {
+        setSubmitError(err.message || "Something went wrong. Please try again.");
+      }
+    }
+  };
+
+  const handleResetForm = () => {
     reset();
+    setSuccessData(null);
+    setSubmitError(null);
+    setSubmitMethod(null);
   };
 
   const contacts: ContactMethod[] = [
@@ -76,7 +120,7 @@ export function Contact() {
       title: "Email Address",
       value: "info@shivcoretech.com",
       subtext: "We reply within 24 hours",
-      href: "mailto:info@shivcoretech.com",
+      href: "mailto:info@shivcoretech.com?subject=Inquiry%20to%20Shiv%20Core%20Tech",
       icon: Mail,
       glowColor: "accent",
     },
@@ -222,147 +266,232 @@ export function Contact() {
             hoverEffect="none"
             className="p-6 sm:p-8 relative h-full flex flex-col justify-between"
           >
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col justify-between h-full space-y-4"
-              noValidate
-            >
-              <div className="space-y-4 flex-grow">
-                <div>
-                  <h3 className="text-xl font-bold text-foreground font-heading">Send an Enquiry</h3>
-                  <p className="text-xs text-muted-foreground mt-1 font-sans">
-                    Fill in details below to connect with us directly on WhatsApp.
-                  </p>
-                </div>
+            <AnimatePresence mode="wait">
+              {!successData ? (
+                <motion.form
+                  key="enquiry-form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="flex flex-col justify-between h-full space-y-4"
+                  noValidate
+                >
+                  <div className="space-y-4 flex-grow">
+                    <div>
+                      <h3 className="text-xl font-bold text-foreground font-heading">Send an Enquiry</h3>
+                      <p className="text-xs text-muted-foreground mt-1 font-sans">
+                        Fill in details below to connect via email or WhatsApp.
+                      </p>
+                    </div>
 
-                {/* Field: Full Name */}
-                <div className="space-y-2">
-                  <label htmlFor="fullName" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
-                    Full Name <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <span className="absolute inset-y-0 left-3.5 flex items-center text-muted-foreground">
-                      <User className="h-4 w-4" />
-                    </span>
-                    <input
-                      id="fullName"
-                      type="text"
-                      aria-invalid={errors.fullName ? "true" : "false"}
-                      placeholder="Your Name"
-                      {...register("fullName", {
-                        required: "Full name is required",
-                        minLength: { value: 2, message: "Name must be at least 2 characters" }
-                      })}
-                      className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
-                        ${errors.fullName ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
-                      `}
-                    />
-                  </div>
-                  {errors.fullName && (
-                    <span className="text-[11px] text-red-400 font-sans block">{errors.fullName.message}</span>
-                  )}
-                </div>
+                    {submitError && (
+                      <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-sans">
+                        {submitError}
+                      </div>
+                    )}
 
-                {/* Field: Email */}
-                <div className="space-y-2">
-                  <label htmlFor="email" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
-                    Email Address <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <span className="absolute inset-y-0 left-3.5 flex items-center text-muted-foreground">
-                      <Mail className="h-4 w-4" />
-                    </span>
-                    <input
-                      id="email"
-                      type="email"
-                      aria-invalid={errors.email ? "true" : "false"}
-                      placeholder="your.email@example.com"
-                      {...register("email", {
-                        required: "Email is required",
-                        pattern: {
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                          message: "Please enter a valid email address"
-                        }
-                      })}
-                      className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
-                        ${errors.email ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
-                      `}
-                    />
-                  </div>
-                  {errors.email && (
-                    <span className="text-[11px] text-red-400 font-sans block">{errors.email.message}</span>
-                  )}
-                </div>
+                    {/* Field: Full Name */}
+                    <div className="space-y-2">
+                      <label htmlFor="fullName" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
+                        Full Name <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <span className="absolute inset-y-0 left-3.5 flex items-center text-muted-foreground">
+                          <User className="h-4 w-4" />
+                        </span>
+                        <input
+                          id="fullName"
+                          type="text"
+                          aria-invalid={errors.fullName ? "true" : "false"}
+                          placeholder="Your Name"
+                          {...register("fullName", {
+                            required: "Full name is required",
+                            minLength: { value: 2, message: "Name must be at least 2 characters" }
+                          })}
+                          className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
+                            ${errors.fullName ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
+                          `}
+                        />
+                      </div>
+                      {errors.fullName && (
+                        <span className="text-[11px] text-red-400 font-sans block">{errors.fullName.message}</span>
+                      )}
+                    </div>
 
-                {/* Field: Service Required */}
-                <div className="space-y-2">
-                  <label htmlFor="service" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
-                    Service Required <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <select
-                      id="service"
-                      aria-invalid={errors.service ? "true" : "false"}
-                      {...register("service", { required: "Please select a service" })}
-                      className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground px-3.5 py-2.5 outline-none transition-all appearance-none cursor-pointer font-sans
-                        ${errors.service ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
-                      `}
-                    >
-                      <option value="" disabled className="bg-background text-muted-foreground">Select a service...</option>
-                      <option value="Website Development" className="bg-background text-foreground">Website Development</option>
-                      <option value="Mobile App Development" className="bg-background text-foreground">Mobile App Development</option>
-                      <option value="Software Development" className="bg-background text-foreground">Software Development</option>
-                      <option value="AI Chatbots" className="bg-background text-foreground">AI Chatbots</option>
-                      <option value="Design Services" className="bg-background text-foreground">Design Services</option>
-                      <option value="Digital Marketing" className="bg-background text-foreground">Digital Marketing</option>
-                      <option value="Other / General Inquiry" className="bg-background text-foreground">Other / General Inquiry</option>
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-3.5 flex items-center text-muted-foreground">
-                      <ChevronDown className="h-4 w-4" />
+                    {/* Field: Email */}
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
+                        Email Address <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <span className="absolute inset-y-0 left-3.5 flex items-center text-muted-foreground">
+                          <Mail className="h-4 w-4" />
+                        </span>
+                        <input
+                          id="email"
+                          type="email"
+                          aria-invalid={errors.email ? "true" : "false"}
+                          placeholder="your.email@example.com"
+                          {...register("email", {
+                            required: "Email is required",
+                            pattern: {
+                              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                              message: "Please enter a valid email address"
+                            }
+                          })}
+                          className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground pl-10 pr-3.5 py-2.5 outline-none transition-all font-sans
+                            ${errors.email ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
+                          `}
+                        />
+                      </div>
+                      {errors.email && (
+                        <span className="text-[11px] text-red-400 font-sans block">{errors.email.message}</span>
+                      )}
+                    </div>
+
+                    {/* Field: Service Required */}
+                    <div className="space-y-2">
+                      <label htmlFor="service" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
+                        Service Required <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <select
+                          id="service"
+                          aria-invalid={errors.service ? "true" : "false"}
+                          {...register("service", { required: "Please select a service" })}
+                          className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground px-3.5 py-2.5 outline-none transition-all appearance-none cursor-pointer font-sans
+                            ${errors.service ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
+                          `}
+                        >
+                          <option value="" disabled className="bg-background text-muted-foreground">Select a service...</option>
+                          <option value="Website Development" className="bg-background text-foreground">Website Development</option>
+                          <option value="Mobile App Development" className="bg-background text-foreground">Mobile App Development</option>
+                          <option value="Software Development" className="bg-background text-foreground">Software Development</option>
+                          <option value="AI Chatbots" className="bg-background text-foreground">AI Chatbots</option>
+                          <option value="Design Services" className="bg-background text-foreground">Design Services</option>
+                          <option value="Digital Marketing" className="bg-background text-foreground">Digital Marketing</option>
+                          <option value="Other / General Inquiry" className="bg-background text-foreground">Other / General Inquiry</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-3.5 flex items-center text-muted-foreground">
+                          <ChevronDown className="h-4 w-4" />
+                        </div>
+                      </div>
+                      {errors.service && (
+                        <span className="text-[11px] text-red-400 font-sans block">{errors.service.message}</span>
+                      )}
+                    </div>
+
+                    {/* Field: Message */}
+                    <div className="space-y-2">
+                      <label htmlFor="message" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
+                        Message <span className="text-red-500">*</span>
+                      </label>
+                      <textarea
+                        id="message"
+                        placeholder="Briefly describe your project requirements, goals, or timeline..."
+                        rows={4}
+                        aria-invalid={errors.message ? "true" : "false"}
+                        {...register("message", {
+                          required: "Message is required",
+                          minLength: { value: 10, message: "Message must be at least 10 characters" },
+                          maxLength: { value: 1000, message: "Message cannot exceed 1000 characters" }
+                        })}
+                        className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground px-3.5 py-2.5 outline-none transition-all resize-none font-sans
+                          ${errors.message ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
+                        `}
+                      />
+                      {errors.message && (
+                        <span className="text-[11px] text-red-400 font-sans block">{errors.message.message}</span>
+                      )}
                     </div>
                   </div>
-                  {errors.service && (
-                    <span className="text-[11px] text-red-400 font-sans block">{errors.service.message}</span>
-                  )}
-                </div>
 
-                {/* Field: Message */}
-                <div className="space-y-2">
-                  <label htmlFor="message" className="block text-xs font-semibold text-foreground font-sans tracking-wide uppercase">
-                    Message <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    id="message"
-                    placeholder="Briefly describe your project requirements, goals, or timeline..."
-                    rows={4}
-                    aria-invalid={errors.message ? "true" : "false"}
-                    {...register("message", {
-                      required: "Message is required",
-                      minLength: { value: 10, message: "Message must be at least 10 characters" },
-                      maxLength: { value: 1000, message: "Message cannot exceed 1000 characters" }
-                    })}
-                    className={`w-full rounded-lg bg-muted/50 border text-sm text-foreground px-3.5 py-2.5 outline-none transition-all resize-none font-sans
-                      ${errors.message ? "border-red-500/50 focus:border-red-500" : "border-border/30 focus:border-primary/50 focus:ring-1 focus:ring-primary/50"}
-                    `}
-                  />
-                  {errors.message && (
-                    <span className="text-[11px] text-red-400 font-sans block">{errors.message.message}</span>
-                  )}
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <div className="pt-2">
-                <Button
-                  variant="glow"
-                  type="submit"
-                  className="w-full h-11 justify-center rounded-lg gap-2 cursor-pointer font-semibold text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] border-emerald-500"
+                  {/* Submit Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                    <Button
+                      variant="glow"
+                      type="submit"
+                      onClick={() => setSubmitMethod('email')}
+                      disabled={isSubmitting}
+                      className="flex-1 h-11 justify-center rounded-lg gap-2 cursor-pointer font-semibold text-sm"
+                    >
+                      {isSubmitting && submitMethod === 'email' ? (
+                        <>
+                          <div className="h-4 w-4 border-2 border-white/20 border-t-white rounded-full animate-spin shrink-0" />
+                          <span>Sending...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Mail className="h-4 w-4" />
+                          <span>Send via Email</span>
+                        </>
+                      )}
+                    </Button>
+                    <Button
+                      type="submit"
+                      onClick={() => setSubmitMethod('whatsapp')}
+                      disabled={isSubmitting}
+                      className="flex-1 h-11 justify-center rounded-lg gap-2 cursor-pointer font-semibold text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] border-emerald-500 hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition-all"
+                    >
+                      <MessageSquare className="h-4 w-4" />
+                      <span>Send via WhatsApp</span>
+                    </Button>
+                  </div>
+                </motion.form>
+              ) : (
+                <motion.div
+                  key="enquiry-success"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="flex flex-col items-center justify-center text-center py-12 px-4 space-y-6"
                 >
-                  <MessageSquare className="h-4 w-4" />
-                  <span>Send Enquiry to WhatsApp</span>
-                </Button>
-              </div>
-            </form>
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.1 }}
+                    className="p-4 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.2)]"
+                  >
+                    <CheckCircle className="h-12 w-12" />
+                  </motion.div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-bold text-foreground font-heading">Inquiry Sent!</h3>
+                    <p className="text-sm text-muted-foreground font-sans max-w-sm">
+                      Thank you, <span className="text-foreground font-semibold">{successData.fullName}</span>. 
+                      Your inquiry regarding <span className="text-primary font-semibold">{successData.service}</span> has been received, and our team has been notified.
+                    </p>
+                  </div>
+
+                  <div className="w-full max-w-md rounded-xl bg-muted/30 border border-border/20 p-5 text-left text-xs space-y-3 font-sans">
+                    <div className="flex justify-between border-b border-border/10 pb-2">
+                      <span className="text-muted-foreground">Prospect Name:</span>
+                      <span className="font-semibold text-foreground">{successData.fullName}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/10 pb-2">
+                      <span className="text-muted-foreground">Email Address:</span>
+                      <span className="font-semibold text-foreground truncate max-w-[200px]">{successData.email}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Selected Service:</span>
+                      <span className="font-semibold text-foreground">{successData.service}</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 w-full max-w-md">
+                    <Button
+                      variant="outline"
+                      onClick={handleResetForm}
+                      className="w-full h-10 rounded-lg justify-center cursor-pointer text-xs"
+                    >
+                      Send Another Inquiry
+                    </Button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </CardPremium>
         </div>
 

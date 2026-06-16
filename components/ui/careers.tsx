@@ -30,13 +30,20 @@ interface JobRole {
   experience: string;
   location?: string;
   glowColor: "primary" | "secondary" | "accent";
+  description?: string;
+  requirements?: string[];
 }
 
 export function Careers() {
   const [successData, setSuccessData] = useState<CareerFormValues | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [expandedRoleId, setExpandedRoleId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const toggleRoleExpand = (roleId: string) => {
+    setExpandedRoleId((prev) => (prev === roleId ? null : roleId));
+  };
 
   const roles: JobRole[] = [
     {
@@ -44,35 +51,70 @@ export function Careers() {
       title: "Intern",
       type: "Internship",
       experience: "0-1 Year",
+      location: "On-site / Chhatrapati Sambhaji Nagar",
       glowColor: "primary",
+      description: "Join our team to gain hands-on experience in software development and emerging technologies. Work on real projects, learn from experienced mentors, and build practical skills.",
+      requirements: [
+        "Basic programming knowledge",
+        "Strong learning attitude",
+        "Good communication skills"
+      ]
     },
     {
       id: "cloud-dev",
       title: "Cloud Developer",
       type: "Full-Time",
       experience: "2+ Years",
+      location: "Hybrid / Chhatrapati Sambhaji Nagar",
       glowColor: "secondary",
+      description: "Develop, deploy, and maintain scalable cloud-based applications and infrastructure using modern cloud technologies.",
+      requirements: [
+        "Experience with AWS, Azure, or GCP",
+        "Knowledge of Docker and CI/CD",
+        "Strong problem-solving skills"
+      ]
     },
     {
       id: "web-dev",
       title: "Web Developer",
       type: "Full-Time",
       experience: "1+ Years",
+      location: "Hybrid / Chhatrapati Sambhaji Nagar",
       glowColor: "accent",
+      description: "Build responsive and user-friendly web applications using modern frontend and backend technologies.",
+      requirements: [
+        "HTML, CSS, JavaScript proficiency",
+        "Experience with React, Next.js, or similar frameworks",
+        "Basic database knowledge"
+      ]
     },
     {
       id: "ai-ml-expert",
       title: "AI/ML Expert",
       type: "Full-Time",
       experience: "3+ Years",
+      location: "Hybrid / Chhatrapati Sambhaji Nagar",
       glowColor: "primary",
+      description: "Design and deploy AI/ML solutions, train models, and develop intelligent applications using modern AI technologies.",
+      requirements: [
+        "Strong Python and ML framework knowledge",
+        "Experience with TensorFlow, PyTorch, or similar",
+        "Understanding of Generative AI and NLP concepts"
+      ]
     },
     {
       id: "graphic-designer",
       title: "Graphic Designer",
       type: "Full-Time",
       experience: "2+ Years",
+      location: "On-site / Chhatrapati Sambhaji Nagar",
       glowColor: "secondary",
+      description: "Create visually stunning designs, branding materials, and user interfaces across digital and print media.",
+      requirements: [
+        "Proficiency in Adobe Creative Suite (Photoshop, Illustrator, Figma)",
+        "Strong portfolio of creative work",
+        "Good understanding of layout and typography"
+      ]
     },
   ];
 
@@ -132,10 +174,17 @@ export function Careers() {
   // Handle clicking on a job role to auto-select in form
   const handleSelectRole = (roleId: string) => {
     setValue("position", roleId, { shouldValidate: true });
-    // Scroll to form smoothly
+    // Scroll to form smoothly accounting for sticky navbar height
     const formElement = document.getElementById("careers-form");
     if (formElement) {
-      formElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      const navbarHeight = 85; // fixed navbar height + padding buffer
+      const elementPosition = formElement.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
     }
   };
 
@@ -274,48 +323,123 @@ export function Careers() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
 
         {/* Left Side: Career Listings */}
-        <div className="lg:col-span-5 flex flex-col justify-between h-full">
-          <div className="flex-grow flex flex-col justify-between h-full">
+        <div className="lg:col-span-5 flex flex-col">
+          <div className="flex flex-col">
             <h3 className="typography-h3 text-foreground mb-4 text-left">Current Openings</h3>
-            <div className="flex-grow flex flex-col justify-between gap-4">
-              {roles.map((role) => (
-                <CardPremium
-                  key={role.id}
-                  variant="glass-premium"
-                  glowColor={role.glowColor}
-                  hoverEffect="lift"
-                  className="p-5 flex items-center justify-between gap-4 cursor-pointer"
-                  onClick={() => handleSelectRole(role.id)}
-                >
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-bold text-foreground text-base font-sans">{role.title}</h4>
-                      <span className="text-[10px] font-semibold font-sans uppercase px-2 py-0.5 rounded bg-white/5 border border-white/5 text-muted-foreground">
-                        {role.type}
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-muted-foreground font-sans">
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-muted-foreground" /> {role.location}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-muted-foreground" /> {role.experience}
-                      </span>
-                    </div>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="icon-sm"
-                    className={`rounded-full group-hover:translate-x-1 transition-transform
-                      ${role.glowColor === "primary" ? "text-primary" : ""}
-                      ${role.glowColor === "secondary" ? "text-secondary" : ""}
-                      ${role.glowColor === "accent" ? "text-accent" : ""}
-                    `}
+            <div className="flex flex-col gap-4">
+              {roles.map((role) => {
+                const isExpanded = expandedRoleId === role.id;
+                return (
+                  <CardPremium
+                    key={role.id}
+                    variant="glass-premium"
+                    glowColor={role.glowColor}
+                    hoverEffect={isExpanded ? "none" : "lift"}
+                    className="p-5 flex flex-col cursor-pointer outline-none focus-visible:ring-1 focus-visible:ring-primary/50"
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={isExpanded}
+                    onClick={() => toggleRoleExpand(role.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        toggleRoleExpand(role.id);
+                      }
+                    }}
                   >
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </CardPremium>
-              ))}
+                    <div className="flex items-center justify-between gap-4 w-full">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h4 className="font-bold text-foreground text-base font-sans leading-snug">{role.title}</h4>
+                          <span className="text-[10px] font-semibold font-sans uppercase px-2 py-0.5 rounded bg-white/5 border border-white/5 text-muted-foreground">
+                            {role.type}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2 text-xs text-muted-foreground font-sans">
+                          <span className="flex items-center gap-1">
+                            <MapPin className="w-3.5 h-3.5 text-muted-foreground shrink-0" /> {role.location}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3.5 h-3.5 text-muted-foreground shrink-0" /> {role.experience}
+                          </span>
+                        </div>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="icon-sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleRoleExpand(role.id);
+                        }}
+                        className={`rounded-full transition-transform duration-300 shrink-0
+                          ${isExpanded ? "rotate-180" : ""}
+                          ${role.glowColor === "primary" ? "text-primary" : ""}
+                          ${role.glowColor === "secondary" ? "text-secondary" : ""}
+                          ${role.glowColor === "accent" ? "text-accent" : ""}
+                        `}
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </Button>
+                    </div>
+
+                    <AnimatePresence initial={false}>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                          onClick={(e) => e.stopPropagation()} // prevent collapsing when clicking inner contents
+                        >
+                          <div className="pt-4 border-t border-border/10 mt-4 space-y-4 font-sans text-sm text-left">
+                            <div>
+                              <h5 className="font-semibold text-foreground mb-1 text-xs uppercase tracking-wider text-muted-foreground">Job Description</h5>
+                              <p className="text-muted-foreground leading-relaxed font-sans">{role.description}</p>
+                            </div>
+
+                            {role.requirements && role.requirements.length > 0 && (
+                              <div>
+                                <h5 className="font-semibold text-foreground mb-2 text-xs uppercase tracking-wider text-muted-foreground">Requirements</h5>
+                                <ul className="space-y-2">
+                                  {role.requirements.map((req, idx) => (
+                                    <li key={idx} className="flex items-start gap-2 text-muted-foreground font-sans text-xs">
+                                      <CheckCircle className={`w-4 h-4 shrink-0 mt-0.5
+                                        ${role.glowColor === "primary" ? "text-primary" : ""}
+                                        ${role.glowColor === "secondary" ? "text-secondary" : ""}
+                                        ${role.glowColor === "accent" ? "text-accent" : ""}
+                                      `} />
+                                      <span>{req}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+
+                            <div className="pt-2 flex justify-end">
+                              <Button
+                                variant="default"
+                                size="sm"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleSelectRole(role.id);
+                                }}
+                                className={`w-full sm:w-auto justify-center rounded-lg cursor-pointer text-xs font-semibold transition-all duration-300
+                                  ${role.glowColor === "primary" ? "bg-primary hover:bg-primary/95 text-primary-foreground shadow-[0_0_15px_rgba(37,99,235,0.3)] hover:shadow-[0_0_25px_rgba(37,99,235,0.45)]" : ""}
+                                  ${role.glowColor === "secondary" ? "bg-secondary hover:bg-secondary/95 text-secondary-foreground shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.45)]" : ""}
+                                  ${role.glowColor === "accent" ? "bg-accent hover:bg-accent/95 text-accent-foreground shadow-[0_0_15px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.45)]" : ""}
+                                `}
+                              >
+                                Apply for this Position
+                              </Button>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </CardPremium>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
-  trailingSlash: true,
+  /* Dynamic Node.js server build */
 };
 
 export default nextConfig;
+

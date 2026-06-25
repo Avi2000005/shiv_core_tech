@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/ui/container";
+import { constructMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Terms of Service | Renvora Technologies Private Limited",
-  description:
-    "Terms of Service for Renvora Technologies Private Limited — governing the use of our technology services.",
-};
+export const metadata = constructMetadata({
+  title: "Terms of Service | Shiv Core Tech",
+  description: "Terms of Service for Renvora Technologies Private Limited (Shiv Core Tech) governing the provision of custom software development, IT consulting, and website design services in India.",
+  path: "/terms-of-service",
+});
+
 
 const sections = [
   {

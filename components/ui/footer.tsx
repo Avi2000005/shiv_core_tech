@@ -106,7 +106,7 @@ export function Footer() {
           
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground font-sans leading-relaxed">
-              Transforming Ideas Into Digital Solutions
+              Transforming ideas into digital solutions. Top IT company and custom software development company in Chhatrapati Sambhajinagar, India.
             </p>
             <p className="text-xs text-muted-foreground/60 font-sans tracking-wide uppercase font-semibold">
               RENVORA TECHNOLOGIES PRIVATE LIMITED

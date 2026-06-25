@@ -1,11 +1,14 @@
 import React from "react";
 import { Careers } from "@/components/ui/careers";
 import { Footer } from "@/components/ui/footer";
+import { constructMetadata } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Careers | Shiv Core Tech",
-  description: "Join the core of innovation at Shiv Core Tech. Explore our current job openings and apply to join our engineering and design teams.",
-};
+export const metadata = constructMetadata({
+  title: "Careers | Software & Web Developer Jobs in Chhatrapati Sambhajinagar",
+  description: "Join the core of innovation at Shiv Core Tech in Chhatrapati Sambhajinagar. Explore our current job openings and apply to join our engineering, custom software development, and web design teams.",
+  path: "/careers",
+});
+
 
 export default function CareersPage() {
   return (

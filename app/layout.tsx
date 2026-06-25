@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { constructMetadata } from "@/lib/metadata";
 import ConditionalNavbar from "@/components/ui/conditional-navbar";
+import { StructuredData } from "@/components/ui/structured-data";
 import "./globals.css";
 
 const inter = Inter({
@@ -39,7 +40,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -55,6 +55,7 @@ export default function RootLayout({
             `,
           }}
         />
+        <StructuredData />
       </head>
       <body className="min-h-screen w-full overflow-x-hidden bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary pt-20">
         <ConditionalNavbar />

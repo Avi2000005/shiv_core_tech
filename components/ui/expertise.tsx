@@ -18,45 +18,45 @@ export function Expertise() {
   const services: ServiceItem[] = [
     {
       title: "Website Development",
-      description: "Crafting fast, search-optimized, responsive web platforms and dynamic custom SaaS applications.",
+      description: "As a leading web development company, we craft custom website development options, corporate website design layouts, and fast, SEO-friendly Next.js/React web solutions.",
       icon: Globe,
       glowColor: "primary",
-      features: ["Next.js & React", "SEO Best Practices", "Headless CMS Integration"],
+      features: ["Next.js & React.js", "SEO Friendly Websites", "E-Commerce Solutions"],
     },
     {
       title: "Mobile App Development",
-      description: "Engineering fluid cross-platform and native mobile applications with robust performance.",
+      description: "Engineering fluid cross-platform Android app development and iOS app development projects using Flutter and React Native with robust backend pipelines.",
       icon: Smartphone,
       glowColor: "secondary",
-      features: ["React Native", "iOS & Android Apps", "Offline Synchronization"],
+      features: ["Flutter & React Native", "Android & iOS Apps", "API Gateway Pipelines"],
     },
     {
       title: "Software Development",
-      description: "Developing scalable custom desktop, backend systems, cloud architectures, and database nodes.",
+      description: "Developing custom software development systems, custom business software, ERP software development, CRM development, and automated inventory billing software.",
       icon: Cpu,
       glowColor: "accent",
-      features: ["REST & GraphQL APIs", "Microservices", "Cloud Engineering"],
+      features: ["ERP & CRM Software", "SaaS Development", "Custom Business Software"],
     },
     {
       title: "AI Chatbots",
-      description: "Designing intelligent LLM conversational agents and automated workflow engines for business support.",
+      description: "Designing artificial intelligence solutions, machine learning models, custom NLP engines, and OpenAI AI chatbot integration systems for business automation.",
       icon: MessageSquare,
       glowColor: "secondary",
-      features: ["RAG Deployments", "Custom NLP Engines", "Integration API Pipelines"],
+      features: ["AI Powered Software", "OpenAI API Integration", "Business AI Solutions"],
     },
     {
       title: "Design Services",
-      description: "Formulating premium UI/UX design schemes, component design systems, and visual brand assets.",
+      description: "Formulating premium UI/UX design schemes, component design systems, and high-converting responsive website designs from our expert website designers.",
       icon: Palette,
       glowColor: "primary",
-      features: ["High-Fidelity Mockups", "Interactive Prototypes", "Responsive Layout Rules"],
+      features: ["Responsive Website Design", "High-Fidelity Mockups", "Hire Website Designer"],
     },
     {
       title: "Digital Marketing",
-      description: "Formulating organic brand strategy, analytics dashboard monitoring, and lead acquisition programs.",
+      description: "Formulating organic technical search engine optimization (SEO) services, local SEO strategies, Google Business Profile optimization, and content marketing plans.",
       icon: TrendingUp,
       glowColor: "accent",
-      features: ["Search Performance (SEO)", "Analytics Telemetry", "Content Growth Funnels"],
+      features: ["Technical & Local SEO", "Google Business Profile", "Content Marketing Services"],
     },
   ];
 
@@ -219,7 +219,8 @@ export function Expertise() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src="/ai-brain.webp" 
-                alt="AI Deep Learning Brain and Laptop" 
+                alt="Intelligent Artificial Intelligence solutions, deep learning brain, and business automation software" 
+                loading="lazy"
                 className="w-full h-auto object-contain max-h-[220px] rounded-xl transition-transform duration-500 hover:scale-102"
               />
             </div>

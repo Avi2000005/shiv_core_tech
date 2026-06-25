@@ -135,7 +135,8 @@ export function Portfolio() {
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img 
                         src="/santparampara.png" 
-                        alt="Santparampara E-commerce Platform" 
+                        alt="Santparampara E-commerce website design and WordPress WooCommerce development by Shiv Core Tech" 
+                        loading="lazy"
                         className="w-full h-auto object-contain max-h-[280px] transition-transform duration-500 hover:scale-102"
                       />
                     </div>

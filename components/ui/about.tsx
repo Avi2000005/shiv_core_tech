@@ -46,8 +46,7 @@ export function About() {
               transition={{ delay: 0.2 }}
               className="text-muted-foreground font-sans leading-relaxed text-base"
             >
-              Shiv Core Tech empowers startups, businesses, and local enterprises in emerging markets to embrace digital transformation. 
-              We simplify technology adoption by delivering affordable, scalable, and innovative digital solutions.
+              Shiv Core Tech is a trusted software company in Chhatrapati Sambhajinagar, Maharashtra, empowering startups, businesses, and local enterprises to embrace digital transformation. We simplify technology adoption by delivering affordable, scalable, and innovative custom software development and web design solutions across India.
             </motion.p>
           </div>
         </div>
@@ -84,7 +83,8 @@ export function About() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/teamwork.webp" 
-              alt="Shiv Core Tech Team Collaboration" 
+              alt="Shiv Core Tech Software Developers and Web Designers collaborating on custom business software" 
+              loading="lazy"
               className="w-full aspect-[16/9] object-cover transition-transform duration-500 hover:scale-105"
             />
             <div className="p-6 text-left flex-grow flex flex-col justify-between">
@@ -102,7 +102,8 @@ export function About() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/city-hand.webp" 
-              alt="Digital Solutions Infrastructure" 
+              alt="Digital infrastructure and cloud solution deployment by Shiv Core Tech" 
+              loading="lazy"
               className="w-full aspect-[16/9] object-cover transition-transform duration-500 hover:scale-105"
             />
             <div className="p-6 text-left flex-grow flex flex-col justify-between">

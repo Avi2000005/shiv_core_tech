@@ -135,8 +135,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-6 max-w-xl text-lg text-muted-foreground font-sans leading-relaxed"
           >
-            Shiv Core Tech designs and delivers world-class custom cloud architectures, secure software engineering, 
-            and intelligent IT consulting services to accelerate enterprise digital transformation.
+            Shiv Core Tech is a top IT and custom software development company in Chhatrapati Sambhajinagar, Maharashtra, delivering premium website development, mobile app engineering, cloud solutions, and IT consulting services across India.
           </motion.p>
           
           {/* Action CTAs */}

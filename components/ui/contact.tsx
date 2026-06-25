@@ -156,8 +156,7 @@ export function Contact() {
           transition={{ delay: 0.2 }}
           className="mt-4 max-w-xl text-muted-foreground font-sans leading-relaxed text-base"
         >
-          Get in touch with our engineering and design team to discuss custom integrations, 
-          software platforms, and cloud projects.
+          Hire the best website development company and software company in Chhatrapati Sambhajinagar. Connect with our developers to discuss your custom business software, ERP development, POS software, or AI solutions project.
         </motion.p>
       </div>
 

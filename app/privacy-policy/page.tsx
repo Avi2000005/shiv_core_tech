@@ -2,11 +2,14 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import React from "react";
 import { Container } from "@/components/ui/container";
+import { constructMetadata } from "@/lib/metadata";
 
-export const metadata = {
+export const metadata = constructMetadata({
   title: "Privacy Policy | Shiv Core Tech",
-  description: "Privacy Policy for Renvora Technologies Private Limited (Shiv Core Tech). Learn how we collect, use, and protect your personal data.",
-};
+  description: "Privacy Policy for Renvora Technologies Private Limited (Shiv Core Tech). Learn how we collect, use, and protect your personal data in accordance with Indian IT regulations.",
+  path: "/privacy-policy",
+});
+
 
 export default function PrivacyPolicyPage() {
   return (

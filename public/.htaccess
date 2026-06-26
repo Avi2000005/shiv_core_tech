@@ -1,12 +1,13 @@
-# Disable LiteSpeed Cache and browser cache for HTML and JSON files
-# This ensures that visitors always get the latest HTML referencing the correct CSS/JS chunk names
+# Prevent caching of dynamic page routes (URLs without extensions, HTML, and JSON files)
+# This ensures visitors always receive the latest HTML referencing the correct CSS/JS chunk names.
 <IfModule mod_headers.c>
-    <FilesMatch "\.(html|htm|json)$">
-        Header set Cache-Control "no-cache, no-store, must-revalidate"
-        Header set Pragma "no-cache"
-        Header set Expires 0
-        Header set X-LiteSpeed-Cache-Control "no-cache"
-    </FilesMatch>
+    # If the request is NOT for a static asset, disable LiteSpeed and browser caching
+    SetEnvIf Request_URI "\.(js|css|gif|png|jpe?g|ico|svg|webp|woff|woff2|xml|webmanifest)$" IS_STATIC
+    
+    Header set Cache-Control "no-cache, no-store, must-revalidate" env=!IS_STATIC
+    Header set Pragma "no-cache" env=!IS_STATIC
+    Header set Expires "0" env=!IS_STATIC
+    Header set X-LiteSpeed-Cache-Control "no-cache" env=!IS_STATIC
 
     # Cache static assets (CSS, JS, images, fonts) for 1 year
     # These are hashed in Next.js builds, so their names change when contents change

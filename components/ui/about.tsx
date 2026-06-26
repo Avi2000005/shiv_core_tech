@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Target, Eye } from "lucide-react";
 import { CardPremium } from "./card-premium";
@@ -80,11 +81,11 @@ export function About() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Engineering Excellence Card */}
           <CardPremium variant="glass-premium" glowColor="accent" hoverEffect="glow" className="overflow-hidden p-0 w-full bg-card/40 flex flex-col">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
+            <Image 
               src="/teamwork.webp" 
               alt="Shiv Core Tech Software Developers and Web Designers collaborating on custom business software" 
-              loading="lazy"
+              width={600}
+              height={338}
               className="w-full aspect-[16/9] object-cover transition-transform duration-500 hover:scale-105"
             />
             <div className="p-6 text-left flex-grow flex flex-col justify-between">
@@ -99,11 +100,11 @@ export function About() {
 
           {/* Digital Solutions Illustration Card */}
           <CardPremium variant="glass-premium" glowColor="primary" hoverEffect="glow" className="overflow-hidden p-0 w-full bg-card/40 flex flex-col">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
+            <Image 
               src="/city-hand.webp" 
               alt="Digital infrastructure and cloud solution deployment by Shiv Core Tech" 
-              loading="lazy"
+              width={600}
+              height={338}
               className="w-full aspect-[16/9] object-cover transition-transform duration-500 hover:scale-105"
             />
             <div className="p-6 text-left flex-grow flex flex-col justify-between">

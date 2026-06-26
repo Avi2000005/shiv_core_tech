@@ -59,6 +59,39 @@
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-glow-pulse: glow-pulse 3s ease-in-out infinite alternate;
   --animate-marquee: marquee 30s linear infinite;
+  --animate-sphere-one: sphere-one 25s ease-in-out infinite;
+  --animate-sphere-two: sphere-two 22s ease-in-out infinite;
+  --animate-sphere-three: sphere-three 28s ease-in-out infinite;
+
+  @keyframes sphere-one {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    33% {
+      transform: translate3d(50px, -40px, 0) scale(1.15);
+    }
+    66% {
+      transform: translate3d(-30px, 60px, 0) scale(0.9);
+    }
+  }
+
+  @keyframes sphere-two {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(-60px, 50px, 0) scale(0.85);
+    }
+  }
+
+  @keyframes sphere-three {
+    0%, 100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(30px, 60px, 0);
+    }
+  }
 
   @keyframes float {
     0%, 100% {

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { Globe, Smartphone, Cpu, MessageSquare, Palette, TrendingUp } from "lucide-react";
 import { CardPremium } from "./card-premium";
@@ -216,11 +217,11 @@ export function Expertise() {
 
             {/* Right Column: AI Brain Laptop Image */}
             <div className="lg:col-span-5 flex items-center justify-center w-full">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
+              <Image 
                 src="/ai-brain.webp" 
                 alt="Intelligent Artificial Intelligence solutions, deep learning brain, and business automation software" 
-                loading="lazy"
+                width={500}
+                height={220}
                 className="w-full h-auto object-contain max-h-[220px] rounded-xl transition-transform duration-500 hover:scale-102"
               />
             </div>

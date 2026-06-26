@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Sparkles, Database } from "lucide-react";
 import { CardPremium } from "./card-premium";
@@ -132,11 +133,11 @@ export function Portfolio() {
                   {/* Right Column: Platform Showcase (Side-by-Side) */}
                   <div className="lg:col-span-6 flex flex-col justify-between bg-black/10 border-t lg:border-t-0 lg:border-l border-border/5">
                     <div className="flex-grow flex items-center justify-center p-6 sm:p-8">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img 
+                      <Image 
                         src="/santparampara.png" 
                         alt="Santparampara E-commerce website design and WordPress WooCommerce development by Shiv Core Tech" 
-                        loading="lazy"
+                        width={600}
+                        height={280}
                         className="w-full h-auto object-contain max-h-[280px] transition-transform duration-500 hover:scale-102"
                       />
                     </div>

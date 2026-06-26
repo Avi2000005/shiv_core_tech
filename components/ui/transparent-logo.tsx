@@ -14,13 +14,13 @@ export function TransparentLogo({ src, alt, className, forceTheme }: Transparent
 
   useEffect(() => {
     if (forceTheme) {
-      setLogoSrc(forceTheme === "dark" ? "/logo_dark.webp" : "/logo.webp");
+      setLogoSrc(forceTheme === "dark" ? "/logo_dark.webp?v=2" : "/logo.webp?v=2");
       return;
     }
 
     const updateLogo = () => {
       const isDarkTheme = document.documentElement.classList.contains("dark");
-      setLogoSrc(isDarkTheme ? "/logo_dark.webp" : "/logo.webp");
+      setLogoSrc(isDarkTheme ? "/logo_dark.webp?v=2" : "/logo.webp?v=2");
     };
 
     updateLogo();

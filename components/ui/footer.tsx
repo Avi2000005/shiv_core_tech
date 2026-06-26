@@ -94,7 +94,7 @@ export function Footer() {
         <div className="lg:col-span-4 space-y-6">
           <a href="/" className="flex items-center gap-2 group cursor-pointer select-none">
             <TransparentLogo 
-              src="/logo.webp" 
+              src="/logo_dark.webp?v=2" 
               alt="Shiv Core Tech Logo" 
               className="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300" 
               forceTheme="dark"

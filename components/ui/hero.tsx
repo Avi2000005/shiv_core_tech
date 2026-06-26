@@ -53,45 +53,16 @@ export function Hero() {
       {/* 1. Animated background gradient blobs */}
       <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
         {/* Blue Sphere */}
-        <motion.div
-          animate={shouldAnimate ? {
-            x: [0, 50, -30, 0],
-            y: [0, -40, 60, 0],
-            scale: [1, 1.15, 0.9, 1],
-          } : {}}
-          transition={shouldAnimate ? {
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-          } : undefined}
-          className="absolute top-[10%] right-[10%] w-[350px] h-[350px] rounded-full bg-primary/15 blur-[120px]"
+        <div
+          className={`absolute top-[10%] right-[10%] w-[350px] h-[350px] rounded-full bg-primary/15 blur-[120px] ${shouldAnimate ? "animate-sphere-one will-change-transform" : ""}`}
         />
         {/* Cyan Sphere */}
-        <motion.div
-          animate={shouldAnimate ? {
-            x: [0, -60, 40, 0],
-            y: [0, 50, -40, 0],
-            scale: [1, 0.85, 1.1, 1],
-          } : {}}
-          transition={shouldAnimate ? {
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-          } : undefined}
-          className="absolute bottom-[20%] left-[10%] w-[400px] h-[400px] rounded-full bg-secondary/10 blur-[130px]"
+        <div
+          className={`absolute bottom-[20%] left-[10%] w-[400px] h-[400px] rounded-full bg-secondary/10 blur-[130px] ${shouldAnimate ? "animate-sphere-two will-change-transform" : ""}`}
         />
         {/* Purple Sphere */}
-        <motion.div
-          animate={shouldAnimate ? {
-            x: [0, 30, -50, 0],
-            y: [0, 60, -30, 0],
-          } : {}}
-          transition={shouldAnimate ? {
-            duration: 22,
-            repeat: Infinity,
-            ease: "easeInOut",
-          } : undefined}
-          className="absolute top-[40%] left-1/3 w-[300px] h-[300px] rounded-full bg-accent/10 blur-[110px]"
+        <div
+          className={`absolute top-[40%] left-1/3 w-[300px] h-[300px] rounded-full bg-accent/10 blur-[110px] ${shouldAnimate ? "animate-sphere-three will-change-transform" : ""}`}
         />
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 bg-grid-pattern opacity-60" />
@@ -173,14 +144,8 @@ export function Hero() {
         <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
         
         {/* Moving track */}
-        <motion.div
-          animate={{ x: [0, "-50%"] }}
-          transition={{
-            ease: "linear",
-            duration: 38,
-            repeat: Infinity,
-          }}
-          className="flex w-max whitespace-nowrap gap-0 items-center"
+        <div
+          className="flex w-max whitespace-nowrap gap-0 items-center animate-marquee-infinite will-change-transform"
         >
           {products.map((item, idx) => {
             const Icon = item.icon;
@@ -201,7 +166,7 @@ export function Hero() {
               </div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,15 +1,15 @@
-"use client";
-
 import React from "react";
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/ui/hero";
-import { About } from "@/components/ui/about";
-import { Expertise } from "@/components/ui/expertise";
-import { TechShowcase } from "@/components/ui/tech-showcase";
-import { Portfolio } from "@/components/ui/portfolio";
-import { Testimonials } from "@/components/ui/testimonials";
-// import { FAQ } from "@/components/ui/faq";
-import { Contact } from "@/components/ui/contact";
-import { Footer } from "@/components/ui/footer";
+
+// Dynamically import below-the-fold components to reduce initial page bundle size
+const About = dynamic(() => import("@/components/ui/about").then((m) => m.About));
+const Expertise = dynamic(() => import("@/components/ui/expertise").then((m) => m.Expertise));
+const TechShowcase = dynamic(() => import("@/components/ui/tech-showcase").then((m) => m.TechShowcase));
+const Portfolio = dynamic(() => import("@/components/ui/portfolio").then((m) => m.Portfolio));
+const Testimonials = dynamic(() => import("@/components/ui/testimonials").then((m) => m.Testimonials));
+const Contact = dynamic(() => import("@/components/ui/contact").then((m) => m.Contact));
+const Footer = dynamic(() => import("@/components/ui/footer").then((m) => m.Footer));
 
 export default function Home() {
   return (

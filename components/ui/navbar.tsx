@@ -103,7 +103,7 @@ export function Navbar() {
         {/* Placeholder Brand Logo Component */}
         <a href="/" className="flex items-center gap-2 group cursor-pointer select-none" aria-label="Shiv Core Tech Home">
           <TransparentLogo
-            src="/logo.webp?v=2"
+            src="/logo.webp?v=3"
             alt="Shiv Core Tech Logo"
             className="h-11 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
           />

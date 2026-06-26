@@ -86,6 +86,7 @@ export function About() {
               alt="Shiv Core Tech Software Developers and Web Designers collaborating on custom business software" 
               width={600}
               height={338}
+              style={{ width: "100%", height: "auto" }}
               className="w-full aspect-[16/9] object-cover transition-transform duration-500 hover:scale-105"
             />
             <div className="p-6 text-left flex-grow flex flex-col justify-between">
@@ -105,6 +106,7 @@ export function About() {
               alt="Digital infrastructure and cloud solution deployment by Shiv Core Tech" 
               width={600}
               height={338}
+              style={{ width: "100%", height: "auto" }}
               className="w-full aspect-[16/9] object-cover transition-transform duration-500 hover:scale-105"
             />
             <div className="p-6 text-left flex-grow flex flex-col justify-between">

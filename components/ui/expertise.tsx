@@ -222,7 +222,8 @@ export function Expertise() {
                 alt="Intelligent Artificial Intelligence solutions, deep learning brain, and business automation software" 
                 width={500}
                 height={220}
-                className="w-full h-auto object-contain max-h-[220px] rounded-xl transition-transform duration-500 hover:scale-102"
+                style={{ width: "100%", height: "auto" }}
+                className="w-full object-contain max-h-[220px] rounded-xl transition-transform duration-500 hover:scale-102"
               />
             </div>
           </div>

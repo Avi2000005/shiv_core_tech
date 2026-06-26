@@ -138,7 +138,8 @@ export function Portfolio() {
                         alt="Santparampara E-commerce website design and WordPress WooCommerce development by Shiv Core Tech" 
                         width={600}
                         height={280}
-                        className="w-full h-auto object-contain max-h-[280px] transition-transform duration-500 hover:scale-102"
+                        style={{ width: "100%", height: "auto" }}
+                        className="w-full object-contain max-h-[280px] transition-transform duration-500 hover:scale-102"
                       />
                     </div>
                     <div className="p-4 text-center border-t border-border/5 bg-slate-950/20">
